@@ -1,6 +1,6 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from "axios";
 
-const API_URL = 'http://localhost:3000'; // Base API URL
+const API_URL = "https://eth-rest-api-bundler.cloudb.page"; // Base API URL
 
 interface ApiResponse {
   success: boolean;
@@ -14,13 +14,13 @@ interface ListRpcUrlsResponse {
 // Generic function to handle errors
 const handleApiError = (error: any): string => {
   if (error.response) {
-    console.error('Error Response:', error.response.data);
-    return error.response.data.message || 'An error occurred';
+    console.error("Error Response:", error.response.data);
+    return error.response.data.message || "An error occurred";
   } else if (error.request) {
-    console.error('No Response from Server:', error.request);
-    return 'No response received from the server';
+    console.error("No Response from Server:", error.request);
+    return "No response received from the server";
   } else {
-    console.error('Error Setting Up Request:', error.message);
+    console.error("Error Setting Up Request:", error.message);
     return error.message;
   }
 };
@@ -31,7 +31,7 @@ export const registerWallet = async (walletAddress: string): Promise<AxiosRespon
     const response = await axios.post(
       `${API_URL}/auth/register`,
       { walletAddress },
-      { headers: { 'Content-Type': 'application/json' } }
+      { headers: { "Content-Type": "application/json" } },
     );
     return response;
   } catch (error) {
@@ -43,13 +43,13 @@ export const registerWallet = async (walletAddress: string): Promise<AxiosRespon
 export const saveRpcUrl = async (
   walletAddress: string,
   rpcUrl: string,
-  name: string
+  name: string,
 ): Promise<AxiosResponse<ApiResponse>> => {
   try {
     const response = await axios.post(
       `${API_URL}/rpc/save-rpc-url`,
       { walletAddress, rpcUrl, name },
-      { headers: { 'Content-Type': 'application/json' } }
+      { headers: { "Content-Type": "application/json" } },
     );
     return response;
   } catch (error) {
@@ -58,18 +58,12 @@ export const saveRpcUrl = async (
 };
 
 // Delete RPC URL (DELETE /rpc/delete-rpc-url)
-export const deleteRpcUrl = async (
-  walletAddress: string,
-  name: string
-): Promise<AxiosResponse<ApiResponse>> => {
+export const deleteRpcUrl = async (walletAddress: string, name: string): Promise<AxiosResponse<ApiResponse>> => {
   try {
-    const response = await axios.delete(
-      `${API_URL}/rpc/delete-rpc-url`,
-      {
-        data: { walletAddress, name },
-        headers: { 'Content-Type': 'application/json' }
-      }
-    );
+    const response = await axios.delete(`${API_URL}/rpc/delete-rpc-url`, {
+      data: { walletAddress, name },
+      headers: { "Content-Type": "application/json" },
+    });
     return response;
   } catch (error) {
     throw new Error(handleApiError(error));
@@ -81,13 +75,13 @@ export const updateRpcUrl = async (
   walletAddress: string,
   oldName: string,
   newName: string,
-  rpcUrl: string
+  rpcUrl: string,
 ): Promise<AxiosResponse<ApiResponse>> => {
   try {
     const response = await axios.put(
       `${API_URL}/rpc/update-rpc-url`,
       { walletAddress, oldName, newName, rpcUrl },
-      { headers: { 'Content-Type': 'application/json' } }
+      { headers: { "Content-Type": "application/json" } },
     );
     return response;
   } catch (error) {
@@ -101,7 +95,7 @@ export const listRpcUrls = async (walletAddress: string): Promise<AxiosResponse<
     const response = await axios.post(
       `${API_URL}/rpc/list-rpc-urls`,
       { walletAddress },
-      { headers: { 'Content-Type': 'application/json' } }
+      { headers: { "Content-Type": "application/json" } },
     );
     return response;
   } catch (error) {
@@ -110,15 +104,12 @@ export const listRpcUrls = async (walletAddress: string): Promise<AxiosResponse<
 };
 
 // Create Worker Wallet (POST /wallet/create-worker-wallet)
-export const createWorkerWallet = async (
-  ownerWallet: string,
-  number: number
-): Promise<AxiosResponse<ApiResponse>> => {
+export const createWorkerWallet = async (ownerWallet: string, number: number): Promise<AxiosResponse<ApiResponse>> => {
   try {
     const response = await axios.post(
       `${API_URL}/wallet/create-worker-wallet`,
       { ownerWallet, number },
-      { headers: { 'Content-Type': 'application/json' } }
+      { headers: { "Content-Type": "application/json" } },
     );
     return response;
   } catch (error) {
@@ -133,13 +124,13 @@ export const sendToken = async (
   tokenAddress: string,
   fromAddress: string,
   toAddress: string,
-  amount: string
+  amount: string,
 ): Promise<AxiosResponse<ApiResponse>> => {
   try {
     const response = await axios.post(
       `${API_URL}/wallet/sendToken`,
       { ownerWalletAddress, rpcUrl, tokenAddress, fromAddress, toAddress, amount },
-      { headers: { 'Content-Type': 'application/json' } }
+      { headers: { "Content-Type": "application/json" } },
     );
     return response;
   } catch (error) {
@@ -148,14 +139,12 @@ export const sendToken = async (
 };
 
 // List Worker Wallets (POST /wallet/list-worker-wallets)
-export const listWorkerWallets = async (
-  ownerWallet: string
-): Promise<AxiosResponse<ApiResponse>> => {
+export const listWorkerWallets = async (ownerWallet: string): Promise<AxiosResponse<ApiResponse>> => {
   try {
     const response = await axios.post(
       `${API_URL}/wallet/list-worker-wallets`,
       { ownerWallet },
-      { headers: { 'Content-Type': 'application/json' } }
+      { headers: { "Content-Type": "application/json" } },
     );
     return response;
   } catch (error) {
@@ -169,13 +158,13 @@ export const send = async (
   rpcUrl: string,
   fromAddress: string,
   toAddress: string,
-  amount: string
+  amount: string,
 ): Promise<AxiosResponse<ApiResponse>> => {
   try {
     const response = await axios.post(
       `${API_URL}/wallet/send`,
       { ownerWalletAddress, rpcUrl, fromAddress, toAddress, amount },
-      { headers: { 'Content-Type': 'application/json' } }
+      { headers: { "Content-Type": "application/json" } },
     );
     return response;
   } catch (error) {
@@ -187,13 +176,13 @@ export const send = async (
 export const listWallets = async (
   ownerWallet: string,
   page: number,
-  limit: number
+  limit: number,
 ): Promise<AxiosResponse<ApiResponse>> => {
   try {
     const response = await axios.post(
       `${API_URL}/wallet/list-wallets`,
       { ownerWallet, page, limit },
-      { headers: { 'Content-Type': 'application/json' } }
+      { headers: { "Content-Type": "application/json" } },
     );
     return response;
   } catch (error) {
@@ -202,14 +191,12 @@ export const listWallets = async (
 };
 
 // Get All Balances (POST /wallet/get-all-balances)
-export const getAllBalances = async (
-  ownerAddress: string
-): Promise<AxiosResponse<ApiResponse>> => {
+export const getAllBalances = async (ownerAddress: string): Promise<AxiosResponse<ApiResponse>> => {
   try {
     const response = await axios.post(
       `${API_URL}/wallet/get-all-balances`,
       { ownerAddress },
-      { headers: { 'Content-Type': 'application/json' } }
+      { headers: { "Content-Type": "application/json" } },
     );
     return response;
   } catch (error) {
@@ -222,13 +209,13 @@ export const setWalletType = async (
   ownerWallet: string,
   walletAddresses: string[],
   isFundingWallet: boolean,
-  isWorkerWallet: boolean
+  isWorkerWallet: boolean,
 ): Promise<AxiosResponse<ApiResponse>> => {
   try {
     const response = await axios.post(
       `${API_URL}/wallet/set-wallet-type`,
       { ownerWallet, walletAddresses, isFundingWallet, isWorkerWallet },
-      { headers: { 'Content-Type': 'application/json' } }
+      { headers: { "Content-Type": "application/json" } },
     );
     return response;
   } catch (error) {
@@ -240,13 +227,13 @@ export const setWalletType = async (
 export const getBalance = async (
   rpcUrl: string,
   ownerAddress: string,
-  walletAddress: string
+  walletAddress: string,
 ): Promise<AxiosResponse<ApiResponse>> => {
   try {
     const response = await axios.post(
       `${API_URL}/wallet/get-balance`,
       { rpcUrl, ownerAddress, walletAddress },
-      { headers: { 'Content-Type': 'application/json' } }
+      { headers: { "Content-Type": "application/json" } },
     );
     return response;
   } catch (error) {
