@@ -35,7 +35,7 @@
     "vercel": "yarn workspace @se-2/nextjs vercel",
     "vercel:yolo": "yarn workspace @se-2/nextjs vercel:yolo"
   },
-  "packageManager": "yarn@3.2.3",
+  "packageManager": "yarn@1.21.21",
   "devDependencies": {
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3"
@@ -44,6 +44,8 @@
     "node": ">=18.17.0"
   },
   "dependencies": {
-    "axios": "^1.7.7"
+    "axios": "^1.7.7",
+    "ethers": "^6.13.3",
+    "react-icons": "^5.3.0"
   }
 }

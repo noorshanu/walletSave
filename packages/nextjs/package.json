@@ -17,6 +17,9 @@
     "@heroicons/react": "^2.1.5",
     "@rainbow-me/rainbowkit": "2.1.6",
     "@tanstack/react-query": "^5.28.6",
+    "@trigger.dev/nextjs": "^3.0.9",
+    "@trigger.dev/react": "^3.0.9",
+    "@trigger.dev/sdk": "^3.0.9",
     "@uniswap/sdk-core": "^4.0.1",
     "@uniswap/v2-sdk": "^3.0.1",
     "axios": "^1.7.7",
@@ -54,5 +57,8 @@
     "type-fest": "^4.6.0",
     "typescript": "5.5.3",
     "vercel": "^37.4.2"
+  },
+  "trigger.dev": {
+    "endpointId": "ethwallet-8aD7"
   }
 }
