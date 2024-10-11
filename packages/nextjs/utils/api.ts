@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 
-const API_URL = "http://localhost:4000"; // Base API URL for local APIs
+const API_URL = "https://eth-rest-api-bundler.cloudb.page/"; // Base API URL for local APIs
 const MINTER_API_URL = "https://minter.blocktools.ai/api"; // Base API URL for token deployment
 
 // Define common response structure for API responses
