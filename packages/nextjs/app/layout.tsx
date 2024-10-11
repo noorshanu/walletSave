@@ -18,7 +18,7 @@ const ScaffoldEthApp = ({ children }: { children: React.ReactNode }) => {
         <Sidebar />
         <ThemeProvider enableSystem>
           {/* Main content */}
-          <div className="flex-1 max-w-screen-xl ml-auto w-full ">
+          <div className="flex-1  w-full ">
             <ScaffoldEthAppWithProviders>{children}</ScaffoldEthAppWithProviders>
           </div>
         </ThemeProvider>
