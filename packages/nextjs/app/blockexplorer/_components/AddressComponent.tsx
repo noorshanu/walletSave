@@ -6,7 +6,7 @@ export const AddressComponent = ({
   address,
   contractData,
 }: {
-  address: string;
+  address: `0x${string}`; // Ensures the address starts with 0x
   contractData: { bytecode: string; assembly: string } | null;
 }) => {
   return (
