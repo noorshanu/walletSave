@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AddressCodeTab } from "./AddressCodeTab";
 import { AddressLogsTab } from "./AddressLogsTab";
 import { AddressStorageTab } from "./AddressStorageTab";
@@ -30,15 +30,15 @@ export const ContractTabs = ({ address, contractData }: PageProps) => {
   const [activeTab, setActiveTab] = useState("transactions");
   const [isContract, setIsContract] = useState(false);
 
-  useEffect(() => {
-    const checkIsContract = async () => {
-      const noor = "0x";
-      const contractCode = await publicClient.getBytecode({ address: address });
-      setIsContract(contractCode !== undefined && contractCode !== noor);
-    };
+  // useEffect(() => {
+  //   const checkIsContract = async () => {
+  //     const noor = "0x";
+  //     const contractCode = await publicClient.getBytecode({ address: address });
+  //     setIsContract(contractCode !== undefined && contractCode !== noor);
+  //   };
 
-    checkIsContract();
-  }, [address]);
+  //   checkIsContract();
+  // }, [address]);
 
   const filteredBlocks = blocks.filter(block =>
     block.transactions.some(tx => {
