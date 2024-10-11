@@ -1,55 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
-import { ethers } from "ethers";
+import { listRpcUrls, deployToken } from "../utils/api"; // Assuming the API path is correct
 import { useAccount } from "wagmi";
-
-// Import ethers.js
-
-// Deploy token function using ethers.js
-const deployToken = async (
-  owner: string,
-  tokenName: string,
-  tokenSymbol: string,
-  tokenDecimals: number,
-  totalSupply: string,
-  rpcUrl: string,
-) => {
-  const ERC20_ABI = ["constructor(string name, string symbol, uint8 decimals, uint256 totalSupply)"];
-
-  try {
-    // Connect to the selected RPC URL using ethers.js
-    const provider = new ethers.providers.JsonRpcProvider(rpcUrl);
-
-    // Set up the wallet using the owner (private key should be handled securely in production)
-    const wallet = new ethers.Wallet(owner, provider);
-
-    // Token factory: ABI and bytecode for the ERC-20 token
-    const tokenFactory = new ethers.ContractFactory(ERC20_ABI, wallet);
-
-    // Convert the total supply to the correct unit (using decimals)
-    const totalSupplyInWei = ethers.utils.parseUnits(totalSupply, tokenDecimals);
-
-    // Deploy the token
-    const tokenContract = await tokenFactory.deploy(tokenName, tokenSymbol, tokenDecimals, totalSupplyInWei);
-
-    // Wait for the transaction to be mined
-    await tokenContract.deployed();
-
-    // Return success and the transaction hash
-    return {
-      success: true,
-      transactionHash: tokenContract.deployTransaction.hash,
-    };
-  } catch (error) {
-    console.error("Error deploying token:", error);
-    return {
-      success: false,
-      message: error.message,
-    };
-  }
-};
+import Link from "next/link";
 
 const CreateTokenForm = () => {
   const { address, isConnected } = useAccount(); // Get the connected wallet address
@@ -67,13 +21,12 @@ const CreateTokenForm = () => {
   useEffect(() => {
     const fetchRpcUrls = async () => {
       if (isConnected && address) {
-        // Simulate the list of RPC URLs (can replace with actual API call)
-        setRpcList([
-          {
-            name: "Binance Smart Chain Testnet",
-            rpcUrl: "https://data-seed-prebsc-1-s1.binance.org:8545/",
-          },
-        ]);
+        try {
+          const response = await listRpcUrls(address as string);
+          setRpcList(response.data.rpcUrls); // Save the list of RPC URLs
+        } catch (error) {
+          console.error("Error fetching RPC URLs:", error);
+        }
       }
     };
 
@@ -87,30 +40,31 @@ const CreateTokenForm = () => {
       return;
     }
 
-    if (!privateKey) {
-      alert("Please enter the private key.");
-      return;
-    }
+    // if (!privateKey) {
+    //   alert("Please enter the private key.");
+    //   return;
+    // }
 
     // Set loading state
     setLoading(true);
 
     try {
-      // Call the deployToken API
+      // Call the deployToken API here
       const response = await deployToken(
-        privateKey, // Pass private key for wallet signing
+        address as string, // mainWallet and owner public key (connected wallet)
+        address as string, // publicKey (connected wallet)
         tokenName,
         tokenSymbol,
         tokenDecimals,
         totalSupply,
-        selectedRpcUrl,
+        selectedRpcUrl
       );
 
       // Update response message with the result of the API call
-      if (response.success) {
-        setResponseMessage(`Token deployed successfully! Transaction Hash: ${response.transactionHash}`);
+      if (response.data.success) {
+        setResponseMessage(`Token deployed successfully! Transaction Hash: ${response.data.transactionHash}`);
       } else {
-        setResponseMessage(`Token deployment failed: ${response.message}`);
+        setResponseMessage(`Token deployment failed: ${response.data.message}`);
       }
     } catch (error) {
       console.error("Error deploying token:", error);
@@ -145,14 +99,14 @@ const CreateTokenForm = () => {
           </select>
 
           <div className="mt-4">
-            <a href="/rpc-url/save-url">
-              <a className="py-1 px-3 text-base bg-primary-gradient rounded-full text-white">Add Network</a>
+            <a href="/rpc-url/save-url" className="py-1 px-3 text-base bg-primary-gradient rounded-full text-white">
+              Add Network
             </a>
           </div>
         </div>
 
         {/* Private Key */}
-        <div>
+        {/* <div>
           <label className="block text-gray-300 text-sm font-medium mb-1">* Owner Private Key</label>
           <input
             type="password"
@@ -162,7 +116,20 @@ const CreateTokenForm = () => {
             className="w-full bg-gray-800 text-white border border-gray-600 rounded-md p-3"
             required
           />
-        </div>
+        </div> */}
+<div>
+<label className="block text-gray-300 text-sm font-medium mb-1">* TOKEN TYPE</label>
+            <select
+            className="w-full bg-gray-800 text-white border border-gray-600 rounded-md p-3"
+          
+          >
+            <option value="">Select Token Type</option>
+            <option value="">Standard token</option>
+            
+            
+         
+          </select>
+</div>
 
         {/* Token Name and Symbol */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
