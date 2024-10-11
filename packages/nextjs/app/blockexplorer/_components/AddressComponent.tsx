@@ -1,11 +1,11 @@
 import { BackButton } from "./BackButton";
-import { ContractTabs } from "./ContractTabs";
-import { Balance } from "~~/components/scaffold-eth";
 
-export const AddressComponent = ({
-  // address,
-  contractData,
-}: {
+// import { ContractTabs } from "./ContractTabs";
+// import { Balance } from "~~/components/scaffold-eth";
+
+export const AddressComponent = ({}: // address,
+// contractData,
+{
   // address: `0x${string}`; // Ensures the address starts with 0x
   contractData: { bytecode: string; assembly: string } | null;
 }) => {
@@ -22,14 +22,14 @@ export const AddressComponent = ({
                 {/* <Address address={address} format="long" onlyEnsOrAddress /> */}
                 <div className="flex gap-1 items-center">
                   <span className="font-bold text-sm">Balance:</span>
-                  <Balance address={address} className="text" />
+                  {/* <Balance address={address} className="text" /> */}
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <ContractTabs address={address} contractData={contractData} />
+      {/* <ContractTabs address={address} contractData={contractData} /> */}
     </div>
   );
 };
