@@ -58,6 +58,7 @@ const SetWalletType = () => {
         isWorkerWallet, // Whether it's a worker wallet
       );
       setMessage("Wallet type updated successfully!");
+      console.log(response);
     } catch (error) {
       console.error("Error setting wallet type:", error);
       setMessage("Failed to update wallet type.");
@@ -85,7 +86,11 @@ const SetWalletType = () => {
           {loadingWorkerWallets ? (
             <div>Loading worker wallets...</div>
           ) : workerWallets.length > 0 ? (
-            <select className="border p-2 w-full rounded-lg w-[400px]" value={selectedWallets} onChange={handleWalletSelection}>
+            <select
+              className="border p-2 w-full rounded-lg w-[400px]"
+              value={selectedWallets}
+              onChange={handleWalletSelection}
+            >
               {workerWallets.map(wallet => (
                 <option key={wallet.walletAddress} value={wallet.walletAddress}>
                   {wallet.walletAddress}

@@ -1,6 +1,8 @@
+import { Wallet } from "@rainbow-me/rainbowkit";
 import axios, { AxiosResponse } from "axios";
+import { SetStateAction } from "react";
 
-const API_URL = "https://eth-rest-api-bundler.cloudb.page/"; // Base API URL for local APIs
+const API_URL = "https://eth-rest-api-bundler.cloudb.page"; // Base API URL for local APIs
 const MINTER_API_URL = "https://minter.blocktools.ai/api"; // Base API URL for token deployment
 
 // Define common response structure for API responses
@@ -148,6 +150,14 @@ export const updateRpcUrl = async (
   }
 };
 
+// Define the ListRpcUrlsResponse interface
+interface ListRpcUrlsResponse {
+  rpcUrls: {
+    name: string;
+    rpcUrl: string;
+  }[];
+}
+
 // List RPC URLs (POST /rpc/list-rpc-urls)
 export const listRpcUrls = async (walletAddress: string): Promise<AxiosResponse<ListRpcUrlsResponse>> => {
   try {
@@ -161,7 +171,6 @@ export const listRpcUrls = async (walletAddress: string): Promise<AxiosResponse<
     throw new Error(handleApiError(error));
   }
 };
-
 // Create Worker Wallet (POST /wallet/create-worker-wallet)
 export const createWorkerWallet = async (ownerWallet: string, number: number): Promise<AxiosResponse<ApiResponse>> => {
   try {
@@ -197,6 +206,16 @@ export const sendToken = async (
   }
 };
 
+// Define the ListWorkerWalletsResponse interface
+interface ListWorkerWalletsResponse {
+  walletDetails: SetStateAction<WorkerWallet[]>;
+  workerWallets: {
+    address: string;
+    isFundingWallet: boolean;
+    isWorkerWallet: boolean;
+  }[];
+}
+
 // List Worker Wallets (POST /wallet/list-worker-wallets)
 export const listWorkerWallets = async (ownerWallet: string): Promise<AxiosResponse<ListWorkerWalletsResponse>> => {
   try {
@@ -211,7 +230,13 @@ export const listWorkerWallets = async (ownerWallet: string): Promise<AxiosRespo
   }
 };
 
-// List General Wallets (POST /wallet/list-wallets) - Added new API
+// Define the ListWalletsResponse interface
+interface ListWalletsResponse {
+  wallets: Wallet[]; // Adjust this based on the actual response
+  total: number;     // Total number of wallets for pagination
+}
+
+// List General Wallets (POST /wallet/list-wallets)
 export const listWallets = async (
   ownerWallet: string,
   // eslint-disable-next-line @typescript-eslint/no-inferrable-types

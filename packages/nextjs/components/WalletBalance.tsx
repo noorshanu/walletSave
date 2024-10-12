@@ -20,6 +20,8 @@ const WalletBalance = () => {
   const [manualBalance, setManualBalance] = useState<string>(""); // Balance for manually checked wallet
   const [loading, setLoading] = useState<boolean>(false); // Loading state for the buttons
   const [message, setMessage] = useState<string | null>(null); // Success/error message
+  const [selectedRpcUrl, setSelectedRpcUrl] = useState<string>(""); // Selected RPC URL
+  const [selectedWallet, setSelectedWallet] = useState<string>(""); // Selected wallet address
 
   // Fetch the saved RPC URLs when the component mounts
   useEffect(() => {
@@ -69,8 +71,8 @@ const WalletBalance = () => {
   };
 
   // Function to get the balance for a specific wallet with a specific RPC
-  const handleCheckBalance = async (rpcUrl: string, walletAddress: string) => {
-    if (!isConnected || !rpcUrl || !walletAddress) {
+  const handleCheckBalance = async () => {
+    if (!isConnected || !selectedRpcUrl || !selectedWallet) {
       setMessage("Please connect your wallet, select an RPC, and a wallet address.");
       return;
     }
@@ -79,7 +81,7 @@ const WalletBalance = () => {
     setMessage(null);
 
     try {
-      const response = await getBalance(rpcUrl, address as string, walletAddress);
+      const response = await getBalance(selectedRpcUrl, address as string, selectedWallet);
       console.log("Check balance response:", response);
 
       if (response.data.balance) {

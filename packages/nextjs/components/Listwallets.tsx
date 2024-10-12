@@ -35,6 +35,7 @@ const ListWallets = () => {
     try {
       const response = await listWallets(address, page, walletsPerPage);
       const { walletDetails: fetchedWallets, total } = response.data;
+      console.log(response.data)
 
       setWallets(fetchedWallets); // Set fetched wallets
       setTotalWallets(total); // Set total wallets for pagination

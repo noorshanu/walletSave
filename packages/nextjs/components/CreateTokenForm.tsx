@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { listRpcUrls, deployToken } from "../utils/api"; // Assuming the API path is correct
-import { useAccount } from "wagmi";
 import Link from "next/link";
+import { deployToken, listRpcUrls } from "../utils/api";
+// Assuming the API path is correct
+import { useAccount } from "wagmi";
 
 const CreateTokenForm = () => {
   const { address, isConnected } = useAccount(); // Get the connected wallet address
@@ -40,24 +41,25 @@ const CreateTokenForm = () => {
       return;
     }
 
-    // if (!privateKey) {
-    //   alert("Please enter the private key.");
-    //   return;
-    // }
+    if (!privateKey) {
+      alert("Please enter the private key.");
+      return;
+    }
 
     // Set loading state
     setLoading(true);
 
     try {
-      // Call the deployToken API here
+      // Call the deployToken API here with 8 arguments
       const response = await deployToken(
         address as string, // mainWallet and owner public key (connected wallet)
         address as string, // publicKey (connected wallet)
+        privateKey, // Private key for signing
         tokenName,
         tokenSymbol,
         tokenDecimals,
         totalSupply,
-        selectedRpcUrl
+        selectedRpcUrl, // RPC URL
       );
 
       // Update response message with the result of the API call
@@ -106,7 +108,7 @@ const CreateTokenForm = () => {
         </div>
 
         {/* Private Key */}
-        {/* <div>
+        <div>
           <label className="block text-gray-300 text-sm font-medium mb-1">* Owner Private Key</label>
           <input
             type="password"
@@ -116,20 +118,14 @@ const CreateTokenForm = () => {
             className="w-full bg-gray-800 text-white border border-gray-600 rounded-md p-3"
             required
           />
-        </div> */}
-<div>
-<label className="block text-gray-300 text-sm font-medium mb-1">* TOKEN TYPE</label>
-            <select
-            className="w-full bg-gray-800 text-white border border-gray-600 rounded-md p-3"
-          
-          >
+        </div>
+        <div>
+          <label className="block text-gray-300 text-sm font-medium mb-1">* TOKEN TYPE</label>
+          <select className="w-full bg-gray-800 text-white border border-gray-600 rounded-md p-3">
             <option value="">Select Token Type</option>
             <option value="">Standard token</option>
-            
-            
-         
           </select>
-</div>
+        </div>
 
         {/* Token Name and Symbol */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

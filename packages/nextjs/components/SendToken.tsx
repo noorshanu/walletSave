@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState } from "react";
 import { sendToken } from "../utils/api";
 import { useAccount } from "wagmi";
@@ -42,7 +43,7 @@ const SendToken = () => {
   };
 
   return (
-    <div className="max-w-4xl px-4 py-4 mx-auto mt-8  bg-white dark:bg-[#1c1d32] shadow-lg rounded-lg overflow-hidden border border-green-700">
+    <div className="max-w-4xl w-full px-4 py-4 mx-auto mt-8  bg-white dark:bg-[#1c1d32] shadow-lg rounded-lg overflow-hidden border border-green-700">
       <h2 className="text-2xl font-bold mb-4">Send Token</h2>
 
       {message && <div className="text-red-500">{message}</div>}
@@ -103,7 +104,11 @@ const SendToken = () => {
           />
         </div>
 
-        <button type="submit" className="bg-primary-gradient text-white py-2 px-4 rounded-full" disabled={loading || !isConnected}>
+        <button
+          type="submit"
+          className="bg-primary-gradient text-white py-2 px-4 rounded-full"
+          disabled={loading || !isConnected}
+        >
           {loading ? "Sending..." : isConnected ? "Send Token" : "Connect Wallet"}
         </button>
       </form>

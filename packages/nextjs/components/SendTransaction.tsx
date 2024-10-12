@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { listRpcUrls, send } from "../utils/api"; // Ensure the path to your API function is correct
+import { listRpcUrls, send } from "../utils/api";
+// Ensure the path to your API function is correct
 import { useAccount } from "wagmi";
 
 interface RpcUrl {
@@ -54,11 +55,11 @@ const SendTransaction = () => {
         selectedRpcUrl, // Selected RPC URL
         fromAddress, // Sender address
         toAddress, // Recipient address
-        amount // Amount to send
+        amount, // Amount to send
       );
 
       setMessage(`Transaction successful: ${response.data.message}`);
-      console.log(response.data)
+      console.log(response.data);
     } catch (error) {
       console.error("Error sending transaction:", error);
       setMessage("Failed to send transaction.");
@@ -72,9 +73,7 @@ const SendTransaction = () => {
       <h2 className="text-2xl font-bold mb-4">Send Transaction</h2>
 
       {message && (
-        <div className={`mt-4 ${message.includes("successful") ? "text-green-500" : "text-red-500"}`}>
-          {message}
-        </div>
+        <div className={`mt-4 ${message.includes("successful") ? "text-green-500" : "text-red-500"}`}>{message}</div>
       )}
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -86,7 +85,7 @@ const SendTransaction = () => {
             className="border p-2 w-full"
             placeholder="Enter sender address"
             value={fromAddress}
-            onChange={(e) => setFromAddress(e.target.value)}
+            onChange={e => setFromAddress(e.target.value)}
             required
           />
         </div>
@@ -99,7 +98,7 @@ const SendTransaction = () => {
             className="border p-2 w-full"
             placeholder="Enter recipient address"
             value={toAddress}
-            onChange={(e) => setToAddress(e.target.value)}
+            onChange={e => setToAddress(e.target.value)}
             required
           />
         </div>
@@ -112,7 +111,7 @@ const SendTransaction = () => {
             className="border p-2 w-full"
             placeholder="Enter amount"
             value={amount}
-            onChange={(e) => setAmount(e.target.value)}
+            onChange={e => setAmount(e.target.value)}
             required
           />
         </div>
@@ -123,11 +122,11 @@ const SendTransaction = () => {
           <select
             className="border p-2 w-full"
             value={selectedRpcUrl}
-            onChange={(e) => setSelectedRpcUrl(e.target.value)}
+            onChange={e => setSelectedRpcUrl(e.target.value)}
             required
           >
             <option value="">Select an RPC URL</option>
-            {rpcList.map((rpc) => (
+            {rpcList.map(rpc => (
               <option key={rpc.rpcUrl} value={rpc.rpcUrl}>
                 {rpc.name} - {rpc.rpcUrl}
               </option>

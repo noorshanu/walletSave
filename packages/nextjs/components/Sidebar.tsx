@@ -9,7 +9,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { FaHome, FaPlusSquare } from "react-icons/fa";
-import { FiGrid, FiLock, FiTool } from "react-icons/fi";
+import { FiGrid, FiLock } from "react-icons/fi";
 import { HiOutlineViewGridAdd } from "react-icons/hi";
 // Icons from react-icons
 import { IoList } from "react-icons/io5";
@@ -39,7 +39,7 @@ const Sidebar = () => {
     <>
       {/* Hamburger Button for mobile */}
       <button className="lg:hidden fixed top-4 left-4 z-50 text-white" onClick={() => setIsSidebarOpen(true)}>
-        <AiOutlineMenu className="w-8 h-8" />
+        <AiOutlineMenu size={32} />
       </button>
 
       {/* Sidebar */}
@@ -52,7 +52,7 @@ const Sidebar = () => {
         <div className="flex justify-between p-6 text-2xl font-bold lg:hidden">
           <span>BlockTools</span>
           <button className="text-white" onClick={() => setIsSidebarOpen(false)}>
-            <AiOutlineClose className="w-8 h-8" />
+            <AiOutlineClose size={32} />
           </button>
         </div>
 
@@ -90,7 +90,10 @@ const Sidebar = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/create-token" className={` px-4 py-2 flex items-center gap-2 ${isActive("/create-token")}`}>
+                  <Link
+                    href="/create-token"
+                    className={` px-4 py-2 flex items-center gap-2 ${isActive("/create-token")}`}
+                  >
                     <HiOutlineViewGridAdd />
                     Token Create
                   </Link>
@@ -111,7 +114,10 @@ const Sidebar = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/send/send-token" className={`flex items-center gap-2 px-4 py-2 ${isActive("/send/send-token")}`}>
+                  <Link
+                    href="/send/send-token"
+                    className={`flex items-center gap-2 px-4 py-2 ${isActive("/send/send-token")}`}
+                  >
                     <RiTokenSwapFill /> Token Multi Sender
                   </Link>
                 </li>
@@ -130,10 +136,10 @@ const Sidebar = () => {
                   </Link>
                 </li>
                 <li>
-                        <Link href="/create-lock" className={`flex gap-2 items-center p-4 ${isActive("/create-lock")}`}>
-                        <RiVerifiedBadgeFill /> Verify Contract
-                        </Link>
-                      </li>
+                  <Link href="/create-lock" className={`flex gap-2 items-center p-4 ${isActive("/create-lock")}`}>
+                    <RiVerifiedBadgeFill /> Verify Contract
+                  </Link>
+                </li>
               </ul>
             </div>
 
@@ -148,7 +154,10 @@ const Sidebar = () => {
                     onClick={() => toggleDropdown("developers")}
                   >
                     <div className="flex items-center">
-                      <FaPlusSquare className="mr-4 text-[#19f489]" />
+                      <span className="mr-4 text-[#19f489]">
+                        <FaPlusSquare />
+                      </span>
+
                       <span>Create & Launch</span>
                     </div>
                     <span>{openDropdown === "developers" ? "▲" : "▼"}</span>
@@ -162,8 +171,6 @@ const Sidebar = () => {
                           Launchpad
                         </Link>
                       </li>
-                   
-                   
                     </ul>
                   )}
                 </li>
