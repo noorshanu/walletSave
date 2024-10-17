@@ -10,7 +10,7 @@ function HeroHeader() {
           Blocktools | The Ultimate Solana & EVM Chains Token & Airdrop
           Powerhouse Effortlessly
         </h1>
-        <p className="text-lg text-gray-200">
+        <p className="text-lg dark:text-gray-200 text-black">
           Create tokens, manage OpenBook, burn liquidity, launch airdrops, and
           master market-making across Solana and EVM chains with Blocktools.
           Unleash your project’s full potential and dominate multiple blockchain
