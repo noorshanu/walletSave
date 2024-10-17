@@ -1,81 +1,134 @@
-# 🏗 Scaffold-ETH 2
+# TailAdmin Next.js - Free Next.js Tailwind Admin Dashboard Template
 
-<h4 align="center">
-  <a href="https://docs.scaffoldeth.io">Documentation</a> |
-  <a href="https://scaffoldeth.io">Website</a>
-</h4>
+TailAdmin is a free and open-source admin dashboard template built on **Next.js and Tailwind CSS** providing developers with everything they need to create a feature-rich and data-driven: back-end, dashboard, or admin panel solution for any sort of web project.
 
-🧪 An open-source, up-to-date toolkit for building decentralized applications (dapps) on the Ethereum blockchain. It's designed to make it easier for developers to create and deploy smart contracts and build user interfaces that interact with those contracts.
+[![tailwind nextjs admin template](https://github.com/TailAdmin/free-nextjs-admin-dashboard/blob/main/tailadmin-nextjs.jpg)](https://nextjs-demo.tailadmin.com/)
 
-⚙️ Built using NextJS, RainbowKit, Hardhat, Wagmi, Viem, and Typescript.
+With TailAdmin Next.js, you get access to all the necessary dashboard UI components, elements, and pages required to build a high-quality and complete dashboard or admin panel. Whether you're building a dashboard or admin panel for a complex web application or a simple website. 
 
-- ✅ **Contract Hot Reload**: Your frontend auto-adapts to your smart contract as you edit it.
-- 🪝 **[Custom hooks](https://docs.scaffoldeth.io/hooks/)**: Collection of React hooks wrapper around [wagmi](https://wagmi.sh/) to simplify interactions with smart contracts with typescript autocompletion.
-- 🧱 [**Components**](https://docs.scaffoldeth.io/components/): Collection of common web3 components to quickly build your frontend.
-- 🔥 **Burner Wallet & Local Faucet**: Quickly test your application with a burner wallet and local faucet.
-- 🔐 **Integration with Wallet Providers**: Connect to different wallet providers and interact with the Ethereum network.
+TailAdmin utilizes the powerful features of **Next.js 14** and common features of Next.js such as server-side rendering (SSR), static site generation (SSG), and seamless API route integration. Combined with the advancements of **React 18** and the robustness of **TypeScript**, TailAdmin is the perfect solution to help get your project up and running quickly.
 
-![Debug Contracts tab](https://github.com/scaffold-eth/scaffold-eth-2/assets/55535804/b237af0c-5027-4849-a5c1-2e31495cccb1)
+### [✨ Visit Website](https://tailadmin.com/)
+### [🚀 PRO Demo](https://nextjs-demo.tailadmin.com/)
+### [🚀 FREE Demo](https://nextjs-free-demo.tailadmin.com/)
 
-## Requirements
+### TailAdmin Next.js PRO vs TailAdmin Next.js FREE Comparison 📊
 
-Before you begin, you need to install the following tools:
+#### [TailAdmin Next.js PRO](https://nextjs-demo.tailadmin.com/)
+- 5 Unique Dashboards: Analytics, Ecommerce, Marketing, and CRM (More will be added)
+- 150+ Dashboard UI Components
+- 200+ Total UI Elements
+- 45+ HTML Files
+- All Essential Elements and Files
+- Full Figma Design Source - As Shown on Demo
+___
 
-- [Node (>= v18.17)](https://nodejs.org/en/download/)
-- Yarn ([v1](https://classic.yarnpkg.com/en/docs/install/) or [v2+](https://yarnpkg.com/getting-started/install))
-- [Git](https://git-scm.com/downloads)
+#### [TailAdmin Next.js FREE](https://free-nextjs-demo.tailadmin.com/)
+- 1 Unique Dashboard
+- 30+ Dashboard UI Components
+- 50+ Total UI Elements 
+- 10+ HTML Files
+- TypeScript Support
+- Basic UI Kit Elements and Files
+- Figma Design Source - Free Sample
+___
 
-## Quickstart
+### [⬇️ Download Now](https://tailadmin.com/download)
 
-To get started with Scaffold-ETH 2, follow the steps below:
+### [⚡ Get PRO Version](https://tailadmin.com/pricing)
 
-1. Clone this repo & install dependencies
+### [📄 Documentation/Installation](https://tailadmin.com/docs)
+
+### [🖌️ TailAdmin Figma Free Sample](https://www.figma.com/community/file/1214477970819985778)
+
+### [👉 TailAdmin HTML Version](https://github.com/TailAdmin/tailadmin-free-tailwind-dashboard-template)
+
+
+## Installation
+Here are the steps you need to follow to install the dependencies.
+
+1. Download and extract the template from Next.js Templates.
+
+2. After that **cd** into the template directory then run this command to install all the dependencies
 
 ```
-git clone https://github.com/scaffold-eth/scaffold-eth-2.git
-cd scaffold-eth-2
+npm install
+```
+or
+
+```
 yarn install
 ```
 
-2. Run a local network in the first terminal:
+3. Now run this command to start the developement server
 
 ```
-yarn chain
+npm run dev
 ```
 
-This command starts a local Ethereum network using Hardhat. The network runs on your local machine and can be used for testing and development. You can customize the network configuration in `hardhat.config.ts`.
-
-3. On a second terminal, deploy the test contract:
+or 
 
 ```
-yarn deploy
+yarn dev
 ```
 
-This command deploys a test smart contract to the local network. The contract is located in `packages/hardhat/contracts` and can be modified to suit your needs. The `yarn deploy` command uses the deploy script located in `packages/hardhat/deploy` to deploy the contract to the network. You can also customize the deploy script.
 
-4. On a third terminal, start your NextJS app:
+## Free Admin Dashboard Template for Next.js Built-with Tailwind CSS, React 18 and TypeScript
+TailAdmin Next.js is a free dashboard template, which uses Tailwind CSS, is a great starting point for dashboard UI. This template uses the Next.js JavaScript framework and the easy-to-use Tailwind CSS framework. The Tailwind CSS and Next.js Dashboard Template comes with ready-made components like navigation menus, charts, tables, and forms. These components can be easily adjusted and added to any Next.js web application.
 
-```
-yarn start
-```
+TailAdmin for Next.js provides all essential Next.js + Tailwind CSS UI components that can be copied and pasted directly into your dashboard projects. The range of components includes charts, graphs, navbars, tabs, buttons, cards, tables, profiles, forms, modals, app pages, calendars, web app example templates, and more, all coded for Next.js React and styled using Tailwind CSS.
 
-Visit your app on: `http://localhost:3000`. You can interact with your smart contract using the `Debug Contracts` page. You can tweak the app config in `packages/nextjs/scaffold.config.ts`.
+If you're on the hunt for a top-quality Next.js-Tailwind Dashboard, Admin Panel Template, or UI Kit, TailAdmin is the perfect choice for you!
 
-**What's next**:
+### 📄 License
+TailAdmin Next.js Free is 100% free and open-source; feel free to use it with your personal and commercial projects.
 
-- Edit your smart contract `YourContract.sol` in `packages/hardhat/contracts`
-- Edit your frontend homepage at `packages/nextjs/app/page.tsx`. For guidance on [routing](https://nextjs.org/docs/app/building-your-application/routing/defining-routes) and configuring [pages/layouts](https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts) checkout the Next.js documentation.
-- Edit your deployment scripts in `packages/hardhat/deploy`
-- Edit your smart contract test in: `packages/hardhat/test`. To run test use `yarn hardhat:test`
+### 💜 Support
+If you like the template, please star this repository to inspire the team to create more stuff like this and reach more users like you!
 
-## Documentation
 
-Visit our [docs](https://docs.scaffoldeth.io) to learn how to start building with Scaffold-ETH 2.
+## Update Logs
 
-To know more about its features, check out our [website](https://scaffoldeth.io).
+### Version 1.3.4 - [July 01, 2024]
 
-## Contributing to Scaffold-ETH 2
+#### Issues
 
-We welcome contributions to Scaffold-ETH 2!
+- **Issues 01:** JSvectormap rendering issue resolved.
 
-Please see [CONTRIBUTING.MD](https://github.com/scaffold-eth/scaffold-eth-2/blob/main/CONTRIBUTING.md) for more information and guidelines for contributing to Scaffold-ETH 2.
+### Version 1.3.3 - [June 20, 2024]
+
+#### Issues
+
+- **Issues 01:** Fixed Not building when Loader component removed
+
+### Version 1.3.2 - [June 19, 2024]
+
+#### Enhancements
+
+- **Enhancement 01:** Add ClickOutside Component for reduce repeated functionality in Header Message, Notification and User Dropdowns
+- **Enhancement 02:** Remove Repeated code from Sidebar Menu and Refactor Sidebar Components
+- **Enhancement 03:** Update Jsvectormap Package and it's imports for latest changes
+
+### Version 1.3.1 - [Feb 12, 2024]
+
+#### Issues
+
+- **Issues 01:** Fix Misspelling issue [Default Layout/Layouts].
+
+#### Enhancements
+- **Enhancement 01:** Update style.css
+
+### Version 1.3.0 - [Feb 05, 2024]
+
+#### Enhancements
+
+- **Enhancement 01:** Update Next.js into version 14
+- **Enhancement 02:** Integrate flatpickr in [Date Picker/Form Elements]
+- **Enhancement 03:** Change color after select an option [Select Element/Form Elements].
+- **Enhancement 04:** Make it functional [Multiselect Dropdown/Form Elements].
+- **Enhancement 05:** Make best value editable [Pricing Table One/Pricing Table].
+- **Enhancement 06:** Add Default Layout Component and make App/Layout more clean and use it in every pages.
+
+### Version 0.1.0 - Initial Release - [Aug 3, 2023]
+
+- Initial release of TailAdmin Next.
