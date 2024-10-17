@@ -4,6 +4,7 @@ import { SetStateAction } from "react";
 
 const API_URL = "https://eth-rest-api-bundler.cloudb.page"; // Base API URL for local APIs
 const MINTER_API_URL = "https://minter.blocktools.ai/api"; // Base API URL for token deployment
+const BATCHER_API_URL = "https://batcher.volume.li/trade";
 
 // Define common response structure for API responses
 interface ApiResponse {
@@ -32,13 +33,32 @@ interface DeployTokenRequest {
   };
   rpcUrl: string;
 }
+// Interface for trade API request
+interface TradeRequest {
+  rpcUrl: string;
+  walletAddress: string;
+  privatekey: string;
+  tokenAddress: string;
+  routerAddress: string;
+  routerVersion: string;
+  amount: string;
+  buy: boolean;
+  sell: boolean;
+}
 
+// Interface for trade API response
+interface TradeResponse {
+  success: boolean;
+  message: string;
+  transactionHash?: string;
+}
 // Generic function to handle errors
+// Existing error handler
 const handleApiError = (error: any): string => {
   if (error.response) {
     console.error("Error Response:", error.response.data);
     if (error.response.data.error === "User already registered") {
-      return "User already registered"; // Return specific error message
+      return "User already registered";
     }
     return error.response.data.message || "An error occurred";
   } else if (error.request) {
@@ -355,5 +375,61 @@ export const getBalance = async (
     return response;
   } catch (error) {
     throw new Error(handleApiError(error));
+  }
+};
+
+// Perform a trade (POST /trade)
+export const performTrade = async (
+  rpcUrl: string,
+  walletAddress: string,
+  privatekey: string,
+  tokenAddress: string,
+  routerAddress: string,
+  routerVersion: string,
+  amount: string,
+  buy: boolean,
+  sell: boolean
+): Promise<AxiosResponse<TradeResponse>> => {
+  try {
+    const requestData: TradeRequest = {
+      rpcUrl,
+      walletAddress,
+      privatekey,
+      tokenAddress,
+      routerAddress,
+      routerVersion,
+      amount,
+      buy,
+      sell,
+    };
+
+    const response = await axios.post(
+      BATCHER_API_URL,
+      requestData,
+      { headers: { "Content-Type": "application/json" } }
+    );
+    return response;
+  } catch (error) {
+    throw new Error(handleApiError(error));
+  }
+};
+
+// Example usage: Call the performTrade function
+const executeTrade = async () => {
+  try {
+    const tradeResponse = await performTrade(
+      "https://binance.llamarpc.com",
+      "0x7fC3d085c853889Fd452F8F0251792c1C3E99772",
+      "7d6e1d03f743a9a2aae9c22911fd95e019323b6cd468fac2522e1b3845c76eac",
+      "0xb9b9e43a30aaf8f5ad6f8b3f0e7655a4986cdb22",
+      "0x10ED43C718714eb63d5aA57B78B54704E256024E",
+      "v2", // Uniswap V2
+      "0.0001",
+      true, // Buy
+      false // Sell
+    );
+    console.log("Trade Success:", tradeResponse.data);
+  } catch (error) {
+    console.error("Trade Error:");
   }
 };
