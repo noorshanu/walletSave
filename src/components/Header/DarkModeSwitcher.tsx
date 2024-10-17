@@ -1,7 +1,15 @@
+import { useEffect } from "react";
 import useColorMode from "@/hooks/useColorMode";
 
 const DarkModeSwitcher = () => {
   const [colorMode, setColorMode] = useColorMode();
+
+  // Set dark mode as the default when the component mounts
+  useEffect(() => {
+    if (!colorMode) {
+      setColorMode("dark"); // Set dark mode as default if no mode is set
+    }
+  }, [colorMode, setColorMode]);
 
   return (
     <li>
