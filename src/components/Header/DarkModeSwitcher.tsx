@@ -6,7 +6,7 @@ const DarkModeSwitcher = () => {
 
   // Set dark mode as the default when the component mounts
   useEffect(() => {
-    if (!colorMode) {
+    if (!colorMode && typeof setColorMode === 'function') {
       setColorMode("dark"); // Set dark mode as default if no mode is set
     }
   }, [colorMode, setColorMode]);
