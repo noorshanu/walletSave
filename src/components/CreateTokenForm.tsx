@@ -77,7 +77,7 @@ const CreateTokenForm = () => {
   };
 
   return (
-    <div className=" bg-gray-100 shadow-md border dark:bg-[#1c1d32] p-8 rounded-md w-full  mx-auto">
+    <div className=" bg-gray-100 shadow-md  dark:bg-[#191919] p-8 rounded-md w-full  mx-auto pb-12">
       {/* Header */}
       <h2 className="text-3xl font-bold text-black dark:text-white mb-6">Create Token</h2>
 
@@ -87,7 +87,7 @@ const CreateTokenForm = () => {
         <div>
           <label className="block text-gray-300 text-sm font-medium mb-1">Select Network (RPC)</label>
           <select
-            className="w-full bg-gray-800 text-white border border-gray-600 rounded-md p-3"
+            className="w-full bg-[#191919] text-white border border-gray-600 rounded-md p-3"
             value={selectedRpcUrl}
             onChange={e => setSelectedRpcUrl(e.target.value)}
             required
@@ -100,32 +100,34 @@ const CreateTokenForm = () => {
             ))}
           </select>
 
-          <div className="mt-4">
-            <a href="/rpc-url/save-url" className="py-1 px-3 text-base bg-primary-gradient rounded-full text-white">
+          <div className="mb-8 mt-4">
+            <a href="/rpc-url/save-url" className="py-2 px-3 text-base bg-primary-gradient rounded-md text-white font-semibold ">
               Add Network
             </a>
           </div>
         </div>
 
         {/* Private Key */}
-        <div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
           <label className="block text-gray-300 text-sm font-medium mb-1">* Owner Private Key</label>
           <input
             type="password"
             placeholder="Enter your private key"
             value={privateKey}
             onChange={e => setPrivateKey(e.target.value)}
-            className="w-full bg-gray-800 text-white border border-gray-600 rounded-md p-3"
+            className="w-full bg-[#191919] text-white border border-gray-600 rounded-md p-3"
             required
           />
         </div>
         <div>
           <label className="block text-gray-300 text-sm font-medium mb-1">* TOKEN TYPE</label>
-          <select className="w-full bg-gray-800 text-white border border-gray-600 rounded-md p-3">
+          <select className="w-full bg-[#191919] text-white border border-gray-600 rounded-md p-3">
             <option value="">Select Token Type</option>
             <option value="">Standard token</option>
           </select>
         </div>
+      </div>
 
         {/* Token Name and Symbol */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -136,7 +138,7 @@ const CreateTokenForm = () => {
               placeholder="Ex: Ethereum"
               value={tokenName}
               onChange={e => setTokenName(e.target.value)}
-              className="w-full bg-gray-800 text-white border border-gray-600 rounded-md p-3"
+              className="w-full bg-[#191919] text-white border border-gray-600 rounded-md p-3"
               required
             />
           </div>
@@ -147,7 +149,7 @@ const CreateTokenForm = () => {
               placeholder="Ex: ETH"
               value={tokenSymbol}
               onChange={e => setTokenSymbol(e.target.value)}
-              className="w-full bg-gray-800 text-white border border-gray-600 rounded-md p-3"
+              className="w-full bg-[#191919] text-white border border-gray-600 rounded-md p-3"
               required
             />
           </div>
@@ -161,7 +163,7 @@ const CreateTokenForm = () => {
               type="number"
               value={tokenDecimals}
               onChange={e => setTokenDecimals(Number(e.target.value))}
-              className="w-full bg-gray-800 text-white border border-gray-600 rounded-md p-3"
+              className="w-full bg-[#191919] text-white border border-gray-600 rounded-md p-3"
               required
             />
           </div>
@@ -172,7 +174,7 @@ const CreateTokenForm = () => {
               placeholder="Ex: 1000000000"
               value={totalSupply}
               onChange={e => setTotalSupply(e.target.value)}
-              className="w-full bg-gray-800 text-white border border-gray-600 rounded-md p-3"
+              className="w-full bg-[#191919] text-white border border-gray-600 rounded-md p-3"
               required
             />
           </div>
@@ -180,22 +182,22 @@ const CreateTokenForm = () => {
 
         {/* Response Message */}
         {responseMessage && (
-          <div className="bg-gray-800 text-green-500 p-4 rounded-md mt-4">
+          <div className="bg-[#191919] text-green-500 p-4 rounded-md mt-4">
             <p>{responseMessage}</p>
           </div>
         )}
 
         {/* Buttons */}
-        <div className="flex justify-between mt-8">
+        <div className="flex justify-between mt-8 gap-4">
           <button
             type="reset"
-            className="bg-gray-700 text-white px-6 py-3 rounded-full border border-gray-500 hover:bg-gray-600"
+            className="btn-rest text-white px-6 py-3 rounded-md b hover:bg-gray-600 w-full sm:w-1/2 font-semibold"
           >
             RESET
           </button>
           <button
             type="submit"
-            className={`bg-primary-gradient text-white px-6 py-3 rounded-full hover:bg-red-500 ${
+            className={`bg-primary-gradient text-white px-6 py-3 rounded-md font-semibold hover:bg-red-500 w-full sm:w-1/2 ${
               loading ? "opacity-50 cursor-not-allowed" : ""
             }`}
             disabled={loading}

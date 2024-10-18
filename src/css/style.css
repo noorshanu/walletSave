@@ -242,7 +242,8 @@ input[type="search"]::-webkit-search-cancel-button {
     display: none !important;
 }
 .bg-primary-gradient {
-    background: linear-gradient(to right, #3f358e, #683188, #714b7d);
+    background: linear-gradient(102.01deg, #4754DA 0%, #A643F9 116.49%);
+    box-shadow: 0px 8px 74.1px 15px #4D52DC66;
   }
 
   .loader {
@@ -325,6 +326,17 @@ input[type="search"]::-webkit-search-cancel-button {
 .bg-btn{
     background: linear-gradient(102.01deg, #4754DA 0%, #A643F9 116.49%);
     box-shadow: 0px 8px 74.1px 15px #4D52DC66;
+
+
+}
+.btn-rest{
+    background: linear-gradient(102.01deg, rgba(71, 84, 218, 0.3) 0%, rgba(166, 67, 249, 0.3) 116.49%);
+    border: 2px solid;
+
+border-color:  #4754DA ;
+box-shadow: 0px 8px 74.1px 15px #4D52DC1A;
+
+
 
 
 }

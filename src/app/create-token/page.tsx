@@ -6,7 +6,7 @@ function page() {
   return (
  <>
  <DefaultLayout>
- <div className=" mt-8">
+ <div className=" mt-2 pb-4">
       <CreateTokenForm />
     </div>
  </DefaultLayout>

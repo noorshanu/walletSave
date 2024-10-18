@@ -173,7 +173,8 @@ const TokenList = () => {
                     {indexOfFirstItem + index + 1}
                   </td>
                   <td className="border-r border-[#4C4C4C] p-4">
-                    {token.name}
+                    <a href="/token-details"> {token.name} </a>
+                    
                   </td>
                   <td className="border-r border-[#4C4C4C] p-4">
                     {token.chain}

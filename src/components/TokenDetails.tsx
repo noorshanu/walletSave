@@ -2,35 +2,49 @@ import React from "react";
 
 function TokenDetails() {
   return (
-    <div className="bg-gray-100 dark:bg-[#1c1d32] my-8 p-8 rounded-md w-full max-w-6xl mx-auto shadow-lg">
+    <div className="bg-gray-300 dark:bg-[#191919] my-8 p-8 rounded-md w-full  mx-auto shadow-lg">
       {/* Header Section */}
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-white">Token: CyZq3sULrbByuDc...</h1>
+        <h1 className="text-2xl font-bold dark:text-white text-black-2">
+          Token: CyZq3sULrbByuDc...
+        </h1>
+        <a href="/create-token" className="bg-gradient-to-r from-purple-500 to-blue-500 dark:text-white text-black-2 py-2 px-4 rounded-md font-semibold">
+          New Token
+        </a>
       </div>
 
-      {/* Bundle Status Section */}
-      <div className="grid grid-cols-2 gap-6 bg-white dark:bg-[#22223e] p-6 rounded-md shadow">
+      {/* Token Details Section */}
+      <div className="grid grid-cols-2 gap-6 bg-gray-200 dark:bg-[#191919] p-6 rounded-md shadow">
         <div>
-          <h2 className="text-xl font-semibold mb-2">Chain</h2>
-          <p className="font-medium">Bsc</p>
+          <h2 className="text-lg font-semibold dark:text-white text-black-2 mb-2">Chain</h2>
+          <p className="font-medium dark:text-white text-black-2">Bsc</p>
         </div>
         <div>
-          <h2 className="text-xl font-semibold mb-2">Token Name</h2>
-          <p className="font-medium">BlockTools</p>
+          <h2 className="text-lg font-semibold dark:text-white text-black-2 mb-2">Token Name</h2>
+          <p className="font-medium dark:text-white text-black-2">Neeraj</p>
         </div>
         <div>
-          <h2 className="text-xl font-semibold mb-2">Token Symbol</h2>
-          <p className="font-medium">BlockTools</p>
+          <h2 className="text-lg font-semibold dark:text-white text-black-2 mb-2">Token Symbol</h2>
+          <p className="font-medium dark:text-white text-black-2">Nee</p>
         </div>
         <div>
-          <h2 className="text-xl font-semibold mb-2">Token Address</h2>
-          <a href="#" className="text-blue-600 underline break-all">
-            0x7fC3d085c853889Fd452F8F0251792c1C3E99772
-          </a>
+          <h2 className="text-lg font-semibold dark:text-white text-black-2 mb-2">Token Address</h2>
+          <p className="font-medium dark:text-white text-black-2">
+            NCyZq3sULrbByuDc...ee
+          </p>
         </div>
-      </div>
-      <div className=" flex justify-center items-center mt-4">
-        <button className="bg-primary-gradient text-white py-2 px-4 rounded-full">Create New Token</button>
+        <div>
+          <h2 className="text-lg font-semibold dark:text-white text-black-2 mb-2">Dev Wallet</h2>
+          <p className="font-medium dark:text-white text-black-2">
+            sgsiMARpcYe1qKjABt4VdeSNK7HdXuw7G3upRhZBtdjdjjaifs
+          </p>
+        </div>
+        <div>
+          <h2 className="text-lg font-semibold dark:text-white text-black-2 mb-2">Funding Wallet</h2>
+          <p className="font-medium dark:text-white text-black-2">
+            9R3b2NEWdFj8yGQQZZMUE...SCktKrn48aYZdkdakfkrkmdfkmsekii
+          </p>
+        </div>
       </div>
     </div>
   );
