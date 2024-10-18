@@ -27,7 +27,7 @@ const GasFeeUI = () => {
   const fees = gasFees[selectedChain];
 
   return (
-    <div className="px-6 py-3  mx-auto bg-white max-w-3xl   rounded-lg shadow-md dark:bg-[#1c1d32] w-full">
+    <div className="px-2 py-3  mx-auto bg-white max-w-3xl   rounded-lg shadow-md dark:bg-[#191919] w-full">
       <div className="relative">
         <select
           value={selectedChain}
@@ -42,7 +42,7 @@ const GasFeeUI = () => {
         </select>
       </div>
 
-      <div className="flex justify-between items-center mt-4 p-4 bg-gray-100 dark:bg-[#1c1d32] rounded-lg">
+      <div className="flex justify-between items-center mt-4 p-4 bg-gray-100 dark:bg-[#191919] rounded-lg">
         <div className="text-center">
           <p className="text-blue-600 font-bold">Fast</p>
           <p className="text-blue-600">{fees.fast} Gwei</p>

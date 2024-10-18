@@ -3,14 +3,14 @@ import React from "react";
 
 function HeroHeader() {
   return (
-    <div className="flex flex-col sm:flex-row justify-between items-center px-6 py-10 ">
+    <div className="flex flex-col sm:flex-row justify-between items-center px-6 py-8 bg-hero rounded-md mb-8 ">
       {/* Left side - Text section */}
       <div className="  w-full sm:w-1/2">
-        <h1 className="text-3xl font-bold">
+        <h1 className="text-3xl font-bold text-white pb-4">
           Blocktools | The Ultimate Solana & EVM Chains Token & Airdrop
           Powerhouse Effortlessly
         </h1>
-        <p className="text-lg dark:text-gray-200 text-black">
+        <p className="text-base text-white">
           Create tokens, manage OpenBook, burn liquidity, launch airdrops, and
           master market-making across Solana and EVM chains with Blocktools.
           Unleash your project’s full potential and dominate multiple blockchain
@@ -24,7 +24,7 @@ function HeroHeader() {
         <img
           src="hero.png"
           alt="SlerfTools Illustration"
-          className="max-w-full h-[350px] mx-auto"
+          className="max-w-full h-[320px] mx-auto"
         />
       </div>
     </div>

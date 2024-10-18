@@ -19,18 +19,18 @@ type ToolItem = {
 const ToolsGrid: React.FC = () => {
   const starknetTools: ToolItem[] = [
     { name: "Token MultiSender", icon: <LuSendToBack /> },
-    { name: "Batch Check Balance", icon: <FaBalanceScale /> },
-    { name: "Token Batch Collection", icon: <HiOutlineCollection /> },
-    { name: "Multiple to Multiple transfer", icon: <TbBinaryTree2 /> },
+    { name: "Batch  Balance", icon: <FaBalanceScale /> },
+    { name: "Token  Collection", icon: <HiOutlineCollection /> },
+    { name: "Multi to Multi transfer", icon: <TbBinaryTree2 /> },
     { name: "Create Token", icon: <IoAddCircleOutline /> },
     { name: "Batch Wallet Generate", icon: <FaWallet /> },
   ];
 
   const suiTools: ToolItem[] = [
     { name: "Token MultiSender", icon: <LuSendToBack />},
-    { name: "Batch Check Balance", icon: <FaBalanceScale /> },
-    { name: "Token Batch Collection", icon: <HiOutlineCollection /> },
-    { name: "Multiple to Multiple transfer", icon: <TbBinaryTree2 /> },
+    { name: "Batch  Balance", icon: <FaBalanceScale /> },
+    { name: "Batch Collection", icon: <HiOutlineCollection /> },
+    { name: "Multi to Multi transfer", icon: <TbBinaryTree2 /> },
     { name: "Create Token", icon: <IoAddCircleOutline /> },
     { name: "Batch Wallet Generate", icon: <FaWallet /> },
   ];
@@ -40,24 +40,25 @@ const ToolsGrid: React.FC = () => {
     { name: "Freeze/Unfreeze", icon: <GiBrainFreeze /> },
     { name: "Swap", icon: <IoMdSwap /> },
     { name: "Burn Token", icon: <FaBurn /> },
-    { name: "Token Multi Sender", icon: <LuSendToBack /> },
+    { name: "Token Multiple Sender", icon: <LuSendToBack /> },
     { name: "Bundled Sell", icon: <GiSellCard /> },
   ];
 
+  
   return (
-    <div className=" px-6 w-full my-6">
+    <div className=" px-2 w-full my-6">
       <div className="flex justify-between flex-col sm:flex-row items-center gap-6 w-full">
         {/* Starknet Tools */}
-        <div className="p-4 bg-white rounded-lg shadow-md dark:bg-[#1c1d32] w-full ">
+        <div className="p-4 bg-white rounded-lg shadow-md dark:bg-[#191919] w-full ">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg font-semibold">Tron Tools</h2>
-            <span className="text-sm text-blue-500">More</span>
+            <h2 className="text-lg font-semibold text-black-2 dark:text-white">Tron Tools</h2>
+            <span className="text-sm text-black-2 dark:text-white">More</span>
           </div>
           <div className="grid grid-cols-2 gap-4">
             {starknetTools.map((item, idx) => (
               <button
                 key={idx}
-                className="flex items-center justify-between p-2 border rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"
+                className="flex items-center justify-between p-2 border border-[#4C4C4C] rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 <span className="flex items-center w-full text-sm">
                   {item.icon}
@@ -70,16 +71,16 @@ const ToolsGrid: React.FC = () => {
         </div>
 
         {/* SUI Tools */}
-        <div className="p-4 bg-white rounded-lg shadow-md dark:bg-[#1c1d32] w-full ">
+        <div className="p-4 bg-white rounded-lg shadow-md dark:bg-[#191919] w-full ">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg font-semibold">Sui Tools</h2>
-            <span className="text-sm text-blue-500">More</span>
+            <h2 className="text-lg font-semibold text-black-2 dark:text-white">Sui Tools</h2>
+            <span className="text-sm text-black-2 dark:text-white">More</span>
           </div>
           <div className="grid grid-cols-2 gap-4">
             {suiTools.map((item, idx) => (
               <button
                 key={idx}
-                className="flex items-center justify-between p-2 border rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"
+                className="flex items-center justify-between p-2 border border-[#4C4C4C]  rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 <span className="flex items-center text-sm">
                   {item.icon}
@@ -92,16 +93,16 @@ const ToolsGrid: React.FC = () => {
         </div>
 
         {/* Inscriber Tools */}
-        <div className="p-4 bg-white rounded-lg shadow-md dark:bg-[#1c1d32] w-full ">
+        <div className="p-4 bg-white rounded-lg shadow-md dark:bg-[#191919] w-full ">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg font-semibold">Solana Tools</h2>
-            <span className="text-sm text-blue-500">More</span>
+            <h2 className="text-lg font-semibold text-black-2 dark:text-white">Solana Tools</h2>
+            <span className="text-sm text-black-2 dark:text-white">More</span>
           </div>
           <div className="grid grid-cols-2 gap-4">
             {inscriberTools.map((item, idx) => (
               <button
                 key={idx}
-                className="flex items-center justify-between p-2 border rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"
+                className="flex items-center justify-between p-2 border border-[#4C4C4C]  rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 <span className="flex items-center text-sm">
                   {item.icon}

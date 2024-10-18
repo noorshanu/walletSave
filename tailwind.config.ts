@@ -50,7 +50,7 @@ const config: Config = {
         whiten: "#F1F5F9",
         whiter: "#F5F7FD",
         boxdark: "#24303F",
-        "boxdark-2": "#000",
+        "boxdark-2": "#242424",
         strokedark: "#2E3A47",
         "form-strokedark": "#3d4d60",
         "form-input": "#1d2a39",
