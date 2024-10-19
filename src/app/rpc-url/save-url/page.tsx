@@ -115,21 +115,22 @@ const RpcTable: React.FC<{
       {loading ? (
         <Loader />
       ) : (
-        <table className="min-w-full bg-white dark:bg-[#1c1d32] shadow-lg rounded-lg overflow-hidden">
+        <table className="min-w-full bg-gray-100 shadow-md  dark:bg-[#191919] rounded-md overflow-hidden border  border-[#434C59]">
           <thead>
-            <tr className="bg-gray-100 dark:bg-[#1c1d32]">
-              <th className="text-left p-4">No</th>
-              <th className="text-left p-4">RPC URLs</th>
-              <th className="text-left p-4">RPC Names</th>
-              <th className="text-left p-4">Action</th>
+            <tr className="bg-gray-100 shadow-md  dark:bg-[#191919] border-[#434C59] border">
+              <th className="text-left p-4 border border-[#434C59]">No</th>
+              <th className="text-left p-4 border border-[#434C59]">RPC URLs</th>
+              <th className="text-left p-4 border border-[#434C59]">RPC Names</th>
+              <th className="text-left p-4 border border-[#434C59]">Response Time</th>
+              <th className="text-left p-4 border border-[#434C59]">Action</th>
             </tr>
           </thead>
           <tbody>
             {paginatedData.length > 0 ? (
               paginatedData.map((item, index) => (
-                <tr key={index} className="border-t">
-                  <td className="p-4">{(currentPage - 1) * itemsPerPage + index + 1}</td>
-                  <td className="p-4">
+                <tr key={index} className=" ">
+                  <td className="p-4  border border-[#434C59]">{(currentPage - 1) * itemsPerPage + index + 1}</td>
+                  <td className="p-4 border border-[#434C59]">
                     {editMode === item.name ? (
                       <input
                         value={editUrl}
@@ -140,7 +141,7 @@ const RpcTable: React.FC<{
                       item.rpcUrl
                     )}
                   </td>
-                  <td className="p-4">
+                  <td className="p-4 border border-[#434C59]">
                     {editMode === item.name ? (
                       <input
                         value={editName}
@@ -151,7 +152,10 @@ const RpcTable: React.FC<{
                       item.name
                     )}
                   </td>
-                  <td className="p-4">
+                  <td className="p-4 border border-[#434C59]">
+                   341 ms
+                  </td>
+                  <td className="p-4 border border-[#434C59]">
                     {editMode === item.name ? (
                       <button
                         className="bg-green-500 text-white px-4 py-1 rounded-md"
