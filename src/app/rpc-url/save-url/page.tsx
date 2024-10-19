@@ -2,91 +2,232 @@
 
 import React, { useCallback, useEffect, useState } from "react";
 import { deleteRpcUrl, listRpcUrls, registerWallet, saveRpcUrl, updateRpcUrl } from "../../../utils/api";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { useAccount } from "wagmi";
 import { CiCircleList } from "react-icons/ci";
 import { FaRegEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { PiLinkSimpleDuotone } from "react-icons/pi";
-import { useAccount } from "wagmi";
 import dynamic from "next/dynamic";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 
 // Dynamic import of Loader
 const Loader = dynamic(() => import("../../Loader"), { suspense: true });
 
-const SaveUrls: React.FC = () => {
-  const { address, isConnected } = useAccount();
+// Add RPC URL Component
+const AddRpcUrl: React.FC<{ onSave: () => void }> = ({ onSave }) => {
+  const { address } = useAccount();
   const [rpcUrl, setRpcUrl] = useState<string>("");
   const [rpcName, setRpcName] = useState<string>("");
-  const [rpcList, setRpcList] = useState<{ name: string; rpcUrl: string }[]>([]);
-  const [updateRpcName, setUpdateRpcName] = useState<string>("");
-  const [newRpcUrl, setNewRpcUrl] = useState<string>("");
-  const [warningMessage, setWarningMessage] = useState<string | null>(null);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
-  const [walletRegistered, setWalletRegistered] = useState<boolean>(false);
-  const [welcomeMessage, setWelcomeMessage] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
-
-  const isValidUrl = (url: string): boolean => {
-    try {
-      const validUrl = new URL(url);
-      return validUrl.protocol === "https:";
-    } catch (_) {
-      return false;
-    }
-  };
-
-  // Memoized function to check if the wallet is registered
-  const checkIfWalletIsRegistered = useCallback(async () => {
-    try {
-      setLoading(true); // Start loader
-      const res = await registerWallet(address as string);
-      if (res.data.success) {
-        setWalletRegistered(true);
-        setWelcomeMessage(`Welcome! Your Wallet Address: ${address}`);
-      }
-    } catch (error: any) {
-      if (error.message === "User already registered") {
-        setWalletRegistered(true);
-        setWelcomeMessage(`Owner Wallet: ${address}`);
-      } else {
-        setWarningMessage("An error occurred during registration.");
-        console.error(error);
-      }
-    } finally {
-      setLoading(false); // Stop loader
-    }
-  }, [address]);
-
-  useEffect(() => {
-    if (isConnected && address) {
-      checkIfWalletIsRegistered();
-    }
-  }, [isConnected, address, checkIfWalletIsRegistered]);
 
   const handleSaveRpcUrl = useCallback(async () => {
-    setWarningMessage(null);
-    setSuccessMessage(null);
-
-    if (!isValidUrl(rpcUrl)) {
-      setWarningMessage("Invalid RPC URL format.");
-      return;
-    }
+    if (!rpcUrl || !rpcName) return alert("Please provide both name and URL.");
 
     try {
-      setLoading(true); // Start loader
       await saveRpcUrl(address as string, rpcUrl, rpcName);
-      setSuccessMessage("RPC URL saved successfully!");
+      alert("RPC URL saved successfully!");
       setRpcUrl("");
       setRpcName("");
-      handleListRpcUrls();
+      onSave(); // Trigger refresh after saving
     } catch (error) {
-      console.error("Error Response:", error);
-      setWarningMessage("Failed to save RPC URL.");
-    } finally {
-      setLoading(false); // Stop loader
+      console.error("Failed to save RPC URL", error);
+      alert("Failed to save RPC URL.");
     }
-  }, [address, rpcUrl, rpcName]);
+  }, [rpcUrl, rpcName, address, onSave]);
+
+  return (
+    <div className="bg-gray-100 shadow-md dark:bg-[#191919] px-4 py-4 rounded-md mb-6">
+      <h1 className="text-2xl flex items-center gap-2 font-bold dark:text-white">
+        <PiLinkSimpleDuotone /> ADD RPC URL
+      </h1>
+      <div className="flex items-center gap-4 mb-4">
+        <div className="w-full sm:w-1/2">
+          <label className="dark:text-white">RPC Name</label>
+          <input
+            type="text"
+            className="w-full p-2 border border-gray-300 rounded-md dark:bg-[#191919]"
+            placeholder="Ex: eth, bsc"
+            value={rpcName}
+            onChange={(e) => setRpcName(e.target.value)}
+          />
+        </div>
+        <div className="w-full sm:w-1/2">
+          <label className="dark:text-white">RPC Url</label>
+          <input
+            type="text"
+            className="w-full p-2 border border-gray-300 rounded-md dark:bg-[#191919]"
+            placeholder="https://eth.llamarpc.com"
+            value={rpcUrl}
+            onChange={(e) => setRpcUrl(e.target.value)}
+          />
+        </div>
+      </div>
+      <button
+        className="bg-primary-gradient text-white py-2 px-4 rounded-md w-full"
+        onClick={handleSaveRpcUrl}
+      >
+        Submit RPC
+      </button>
+    </div>
+  );
+};
+
+// Table for RPCs with Pagination
+const RpcTable: React.FC<{
+  rpcList: { name: string; rpcUrl: string }[];
+  onEdit: (name: string, rpcUrl: string) => void;
+  onDelete: (name: string) => void;
+  onUpdate: (name: string, rpcUrl: string) => void;
+  isEditMode: boolean;
+  loading: boolean;
+  onRefresh: () => void;
+}> = ({ rpcList, onEdit, onDelete, onUpdate, isEditMode, loading, onRefresh }) => {
+  const [editMode, setEditMode] = useState<string | null>(null);
+  const [editName, setEditName] = useState<string>("");
+  const [editUrl, setEditUrl] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const itemsPerPage = 10;
+
+  // Calculate total pages
+  const totalPages = Math.ceil(rpcList.length / itemsPerPage);
+
+  // Paginate the rpcList
+  const paginatedData = rpcList.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) setCurrentPage((prev) => prev + 1);
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) setCurrentPage((prev) => prev - 1);
+  };
+
+  return (
+    <div className="mt-4">
+      <div className="flex justify-between mb-4">
+        <h2 className="text-xl font-semibold">RPC URLs</h2>
+        <div>
+          <button className="bg-blue-500 text-white py-1 px-3 rounded-md mr-2" onClick={onRefresh}>
+            Reload
+          </button>
+          <button className="bg-purple-500 text-white py-1 px-3 rounded-md">Copy</button>
+        </div>
+      </div>
+      {loading ? (
+        <Loader />
+      ) : (
+        <table className="min-w-full bg-white dark:bg-[#1c1d32] shadow-lg rounded-lg overflow-hidden">
+          <thead>
+            <tr className="bg-gray-100 dark:bg-[#1c1d32]">
+              <th className="text-left p-4">No</th>
+              <th className="text-left p-4">RPC URLs</th>
+              <th className="text-left p-4">RPC Names</th>
+              <th className="text-left p-4">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {paginatedData.length > 0 ? (
+              paginatedData.map((item, index) => (
+                <tr key={index} className="border-t">
+                  <td className="p-4">{(currentPage - 1) * itemsPerPage + index + 1}</td>
+                  <td className="p-4">
+                    {editMode === item.name ? (
+                      <input
+                        value={editUrl}
+                        onChange={(e) => setEditUrl(e.target.value)}
+                        className="border p-1 rounded"
+                      />
+                    ) : (
+                      item.rpcUrl
+                    )}
+                  </td>
+                  <td className="p-4">
+                    {editMode === item.name ? (
+                      <input
+                        value={editName}
+                        onChange={(e) => setEditName(e.target.value)}
+                        className="border p-1 rounded"
+                      />
+                    ) : (
+                      item.name
+                    )}
+                  </td>
+                  <td className="p-4">
+                    {editMode === item.name ? (
+                      <button
+                        className="bg-green-500 text-white px-4 py-1 rounded-md"
+                        onClick={() => {
+                          onUpdate(editName, editUrl);
+                          setEditMode(null);
+                        }}
+                      >
+                        Save
+                      </button>
+                    ) : (
+                      <>
+                        <button
+                          className="bg-blue-500 text-white px-4 py-1 rounded-md mr-2"
+                          onClick={() => {
+                            setEditMode(item.name);
+                            setEditName(item.name);
+                            setEditUrl(item.rpcUrl);
+                          }}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          className="bg-red-500 text-white px-4 py-1 rounded-md"
+                          onClick={() => onDelete(item.name)}
+                        >
+                          Delete
+                        </button>
+                      </>
+                    )}
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={4} className="p-4 text-center">
+                  No RPC URLs found.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      )}
+
+      {/* Pagination Controls */}
+      {rpcList.length > itemsPerPage && (
+        <div className="flex justify-center items-center mt-4 space-x-2">
+          <button
+            className={`px-4 py-2 rounded-md ${currentPage === 1 ? "bg-gray-400" : "bg-primary-gradient text-white"}`}
+            onClick={handlePreviousPage}
+            disabled={currentPage === 1}
+          >
+            Previous
+          </button>
+          <span className="px-4 py-2">
+            Page {currentPage} of {totalPages}
+          </span>
+          <button
+            className={`px-4 py-2 rounded-md ${currentPage === totalPages ? "bg-gray-400" : "bg-primary-gradient text-white"}`}
+            onClick={handleNextPage}
+            disabled={currentPage === totalPages}
+          >
+            Next
+          </button>
+        </div>
+      )}
+    </div>
+  );
+};
+
+// Main Component
+const SaveUrls: React.FC = () => {
+  const { address, isConnected } = useAccount();
+  const [rpcList, setRpcList] = useState<{ name: string; rpcUrl: string }[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [activeTab, setActiveTab] = useState<string>("list");
 
   const handleListRpcUrls = useCallback(async () => {
     if (!isConnected || !address) {
@@ -94,203 +235,94 @@ const SaveUrls: React.FC = () => {
       return;
     }
     try {
-      setLoading(true); // Start loader
+      setLoading(true);
       const res = await listRpcUrls(address as string);
-      const urls = res.data.rpcUrls.map((item: any) => ({ name: item.name, rpcUrl: item.rpcUrl }));
+      const urls = res.data.rpcUrls.map((item: any) => ({
+        name: item.name,
+        rpcUrl: item.rpcUrl,
+      }));
       setRpcList(urls);
     } catch (error) {
       console.error(error);
     } finally {
-      setLoading(false); // Stop loader
+      setLoading(false);
     }
   }, [address, isConnected]);
 
-  const handleDeleteRpcUrl = useCallback(async (name: string) => {
-    setWarningMessage(null);
-    setSuccessMessage(null);
-    try {
-      setLoading(true); // Start loader
-      await deleteRpcUrl(address as string, name);
-      setSuccessMessage("RPC URL deleted successfully!");
-      handleListRpcUrls();
-    } catch (error) {
-      console.error(error);
-      setWarningMessage("Failed to delete RPC URL.");
-    } finally {
-      setLoading(false); // Stop loader
-    }
-  }, [address, handleListRpcUrls]);
-
-  const handleUpdateRpcUrl = useCallback(async (oldName: string) => {
-    setWarningMessage(null);
-    setSuccessMessage(null);
-
-    if (newRpcUrl && !isValidUrl(newRpcUrl)) {
-      setWarningMessage("Invalid RPC URL format.");
-      return;
-    }
-
-    try {
-      setLoading(true); // Start loader
-      const updatedName = updateRpcName || oldName;
-      const updatedUrl = newRpcUrl || rpcList.find(rpc => rpc.name === oldName)?.rpcUrl;
-
-      if (updatedName === oldName && updatedUrl === rpcList.find(rpc => rpc.name === oldName)?.rpcUrl) {
-        setWarningMessage("No changes detected.");
-        setLoading(false); // Stop loader
-        return;
+  const handleDeleteRpcUrl = useCallback(
+    async (name: string) => {
+      try {
+        setLoading(true);
+        await deleteRpcUrl(address as string, name);
+        alert("RPC URL deleted successfully!");
+        handleListRpcUrls();
+      } catch (error) {
+        console.error("Failed to delete RPC URL", error);
+        alert("Failed to delete RPC URL.");
+      } finally {
+        setLoading(false);
       }
+    },
+    [address, handleListRpcUrls]
+  );
 
-      await updateRpcUrl(address as string, oldName, updatedName, updatedUrl as string);
-      setSuccessMessage("RPC URL updated successfully!");
-      setUpdateRpcName("");
-      setNewRpcUrl("");
-      handleListRpcUrls();
-    } catch (error: any) {
-      setWarningMessage(`Failed to update RPC URL: ${error.message}`);
-    } finally {
-      setLoading(false); // Stop loader
-    }
-  }, [address, newRpcUrl, rpcList, updateRpcName, handleListRpcUrls]);
+  const handleUpdateRpcUrl = useCallback(
+    async (name: string, rpcUrl: string) => {
+      try {
+        setLoading(true);
+        await updateRpcUrl(address as string, name, name, rpcUrl);
+        alert("RPC URL updated successfully!");
+        handleListRpcUrls();
+      } catch (error) {
+        console.error("Failed to update RPC URL", error);
+        alert("Failed to update RPC URL.");
+      } finally {
+        setLoading(false);
+      }
+    },
+    [address, handleListRpcUrls]
+  );
+
+  useEffect(() => {
+    handleListRpcUrls(); // Fetch on component mount
+  }, [handleListRpcUrls]);
 
   return (
-    <>
     <DefaultLayout>
-    <div className="sm:max-w-7xl max-w-max mx-auto p-4">
-      <h1 className="text-2xl flex items-center justify-center gap-2 font-bold text-center">
-        {" "}
-        <PiLinkSimpleDuotone /> Add RPC Url
-      </h1>
-
-      {loading && <Loader />}
-
-      <div className="flex justify-center flex-col sm:flex-row gap-8">
-        <div className="bg-white shadow-xl rounded-2xl dark:bg-[#1c1d32] px-4 py-2 border border-[#19f48a9f] ">
-          {!isConnected ? (
-            <div className="mt-6">
-              <h2 className="text-xl font-semibold">Please connect your wallet to register</h2>
-              <ConnectButton />
-            </div>
-          ) : walletRegistered ? (
-            <div className="mt-6">
-              <h2 className="text-sm text-center font-semibold">{welcomeMessage}</h2>
-            </div>
-          ) : (
-            <div className="mt-6">
-              <h2 className="text-xl font-semibold">Registering your wallet...</h2>
-            </div>
-          )}
-
-          {isConnected && walletRegistered && !loading && (
-            <>
-              <div className="mt-6">
-                <label htmlFor="Name">RPC Name : </label>
-                <input
-                  type="text"
-                  className="border p-2 w-full mt-2 rounded mb-4 border-[#19f48a9f]"
-                  placeholder="Ex- eth, Bsc"
-                  value={rpcName}
-                  onChange={e => setRpcName(e.target.value)}
-                />
-
-                <label htmlFor="Name">RPC Url : </label>
-                <input
-                  type="text"
-                  className="border p-2 w-full mt-2 rounded border-[#19f48a9f]"
-                  placeholder="https://eth.llamarpc.com"
-                  value={rpcUrl}
-                  onChange={e => setRpcUrl(e.target.value)}
-                />
-                <div className=" flex justify-center items-center">
-                  <button
-                    className="mt-4 bg-primary-gradient text-white py-2 px-4 rounded-full"
-                    onClick={handleSaveRpcUrl}
-                  >
-                    Submit
-                  </button>
-                </div>
-              </div>
-
-              {/* List RPC URLs Section */}
-              <div className="mt-6">
-                <ul className="mt-4">
-                  {rpcList.map((item, index) => (
-                    <li key={index} className="border p-2 flex justify-between items-center">
-                      <div>
-                        <span className="font-semibold">Name: {item.name}</span> <br /> Url: {item.rpcUrl}
-                      </div>
-                      <div className="space-x-2">
-                        <button
-                          className="bg-red-500 text-white px-4 py-1 rounded-full"
-                          onClick={() => handleDeleteRpcUrl(item.name)}
-                        >
-                          Delete
-                        </button>
-                        <button
-                          className="bg-green-500 text-white px-4 py-1 rounded-full"
-                          onClick={() => {
-                            setUpdateRpcName(item.name);
-                            setNewRpcUrl(item.rpcUrl);
-                          }}
-                        >
-                          Update
-                        </button>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Update RPC URL Section */}
-              {updateRpcName && (
-                <div className="mt-6">
-                  <h2 className="text-xl font-semibold">Update RPC URL</h2>
-                  <input
-                    type="text"
-                    className="border p-2 w-full mt-2"
-                    placeholder="New RPC Name"
-                    value={updateRpcName}
-                    onChange={e => setUpdateRpcName(e.target.value)}
-                  />
-                  <input
-                    type="text"
-                    className="border p-2 w-full mt-2"
-                    placeholder="New RPC URL"
-                    value={newRpcUrl}
-                    onChange={e => setNewRpcUrl(e.target.value)}
-                  />
-                  <button
-                    className="mt-4 bg-primary-gradient text-white py-2 px-4 rounded-full"
-                    onClick={() => handleUpdateRpcUrl(updateRpcName)}
-                  >
-                    Save Updated RPC URL
-                  </button>
-                </div>
-              )}
-            </>
-          )}
-        </div>
-
-        <div>
-          <button className=" dark:text-white text-black px-4 py-2 flex items-center gap-2" onClick={handleListRpcUrls}>
-            <CiCircleList /> List RPC URLs
+      <div className="w-full p-4">
+        <AddRpcUrl onSave={handleListRpcUrls} />
+        <div className="flex gap-4 mb-6">
+          <button
+            className={`px-4 py-2 rounded-md ${activeTab === "list" ? "bg-primary-gradient text-white" : "bg-gray-200 dark:bg-[#2f2f2f] dark:text-white"}`}
+            onClick={() => setActiveTab("list")}
+          >
+            List RPC URLs
           </button>
-
-          <button className=" dark:text-white text-black px-4 py-2 flex items-center gap-2" onClick={handleListRpcUrls}>
-            <FaRegEdit /> Edit RPC URLs
+          <button
+            className={`px-4 py-2 rounded-md ${activeTab === "edit" ? "bg-primary-gradient text-white" : "bg-gray-200 dark:bg-[#2f2f2f] dark:text-white"}`}
+            onClick={() => setActiveTab("edit")}
+          >
+            Edit RPC URLs
           </button>
-          <button className=" dark:text-white text-black px-4 py-2 flex items-center gap-2" onClick={handleListRpcUrls}>
-            <MdDelete /> Delete RPC URLs
+          <button
+            className={`px-4 py-2 rounded-md ${activeTab === "delete" ? "bg-primary-gradient text-white" : "bg-gray-200 dark:bg-[#2f2f2f] dark:text-white"}`}
+            onClick={() => setActiveTab("delete")}
+          >
+            Delete RPC URLs
           </button>
         </div>
+
+        <RpcTable
+          rpcList={rpcList}
+          onEdit={(name, rpcUrl) => handleUpdateRpcUrl(name, rpcUrl)}
+          onDelete={(name) => handleDeleteRpcUrl(name)}
+          onUpdate={handleUpdateRpcUrl}
+          isEditMode={activeTab === "edit"}
+          loading={loading}
+          onRefresh={handleListRpcUrls}
+        />
       </div>
-
-      {successMessage && <div className="mt-4 text-green-500 font-semibold">{successMessage}</div>}
-      {warningMessage && <div className="mt-4 text-red-500 font-semibold">{warningMessage}</div>}
-    </div>
-
     </DefaultLayout>
-    </>
   );
 };
 
