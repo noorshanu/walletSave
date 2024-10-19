@@ -73,7 +73,7 @@ const SetWalletType = () => {
 
   return (
     <div className="container mx-auto mt-8">
-      <h2 className="text-2xl font-bold mb-4">Set Wallet Type</h2>
+      <h2 className="text-2xl font-bold mb-4 text-black-2 dark:text-white">Set Wallet Type</h2>
 
       {message && (
         <div className={`mt-4 ${message.includes("successfully") ? "text-green-500" : "text-red-500"}`}>{message}</div>
@@ -86,7 +86,7 @@ const SetWalletType = () => {
             <div>Loading worker wallets...</div>
           ) : workerWallets.length > 0 ? (
             <select
-              className="border p-2 w-full rounded-lg w-[400px]"
+              className="w-full rounded-md border border-[#434C59] bg-white p-2 shadow-lg dark:bg-[#191919] text-black-2 dark:text-white"
               value={selectedWallets}
               onChange={handleWalletSelection}
               // Allow multiple selections
@@ -102,7 +102,7 @@ const SetWalletType = () => {
           )}
         </div>
 
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-4 mb-6">
           <div>
             <input
               type="checkbox"
@@ -128,7 +128,7 @@ const SetWalletType = () => {
           </div>
         </div>
 
-        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded" disabled={loading}>
+        <button type="submit" className="bg-primary-gradient my-8 w-full rounded-md px-4 py-2 font-semibold text-white" disabled={loading}>
           {loading ? "Updating..." : "Set Wallet Type"}
         </button>
       </form>
