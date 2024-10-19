@@ -333,7 +333,7 @@ const SaveUrls: React.FC = () => {
 
   return (
     <DefaultLayout>
-      <div className="w-full p-4">
+      <div className="w-full p-4 h-full">
         <AddRpcUrl onSave={handleListRpcUrls} />
       <div className="bg-gray-300 shadow-md  dark:bg-[#191919] rounded-md  py-4 px-4 ">
       <div className="flex gap-4 mb-6  border-b border-gray-400">
