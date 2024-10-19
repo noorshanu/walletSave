@@ -30,7 +30,7 @@ const GasFeeUI = () => {
   const fearGreedIndex = 12; // Dummy data for Fear & Greed index
 
   return (
-    <div className="flex justify-between gap-4 w-full">
+    <div className="flex justify-between gap-4 w-full flex-col sm:flex-row">
       {/* Gas Fee Section */}
       <div className="bg-[#191919] p-6 rounded-lg shadow-md w-full sm:w-1/2 ">
         <div className="relative mb-4">

@@ -188,7 +188,7 @@ const CreateTokenForm = () => {
         )}
 
         {/* Buttons */}
-        <div className="flex justify-between mt-8 gap-4">
+        <div className="flex justify-between mt-8 gap-4 flex-col sm:flex-row">
           <button
             type="reset"
             className="btn-rest text-white px-6 py-3 rounded-md b hover:bg-gray-600 w-full sm:w-1/2 font-semibold"

@@ -90,7 +90,7 @@ const SendTransaction = () => {
       <form onSubmit={handleSubmit} className="w-full space-y-4 ">
         {/* From Address */}
 
-        <div className=" flex items-center gap-4">
+        <div className=" flex flex-col sm:flex-row items-center gap-4">
           <div className=" w-full sm:w-1/2">
             <label className="mb-2 block text-black dark:text-white">Select RPC URL</label>
             <select
@@ -122,7 +122,7 @@ const SendTransaction = () => {
         </div>
 
         {/* To Address */}
-        <div className=" flex items-center gap-4">
+        <div className=" flex items-center gap-4 flex-col sm:flex-row">
         <div className=" w-full sm:w-1/2">
           <label className="mb-2 block text-black dark:text-white">To Address</label>
           <input

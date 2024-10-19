@@ -75,7 +75,7 @@ const SendToken = () => {
 
       <form onSubmit={handleSubmit} className="w-full space-y-4 ">
         {/* Select RPC URL */}
-        <div className="flex w-full items-center gap-4">
+        <div className="flex w-full items-center gap-4 flex-col sm:flex-row">
           <div className="w-full sm:w-1/2">
             <label className="mb-2 block">Select RPC URL</label>
             <select
@@ -108,7 +108,7 @@ const SendToken = () => {
         </div>
 
         {/* Address and Amount Inputs */}
-        <div className="flex w-full items-center gap-4">
+        <div className="flex w-full items-center gap-4 flex-col sm:flex-row">
           <div className="w-full sm:w-1/2">
             <label className="mb-2 block">From Address</label>
             <input
