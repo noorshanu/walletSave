@@ -3,9 +3,9 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { deleteRpcUrl, listRpcUrls, registerWallet, saveRpcUrl, updateRpcUrl } from "../../../utils/api";
 import { useAccount } from "wagmi";
-import { CiCircleList } from "react-icons/ci";
-import { FaRegEdit } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import RpcToast from "@/components/RpcToast";
 import { PiLinkSimpleDuotone } from "react-icons/pi";
 import dynamic from "next/dynamic";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
@@ -18,19 +18,19 @@ const AddRpcUrl: React.FC<{ onSave: () => void }> = ({ onSave }) => {
   const { address } = useAccount();
   const [rpcUrl, setRpcUrl] = useState<string>("");
   const [rpcName, setRpcName] = useState<string>("");
-
+  const RpcSave = () => toast("RPC URL Saved!");
   const handleSaveRpcUrl = useCallback(async () => {
-    if (!rpcUrl || !rpcName) return alert("Please provide both name and URL.");
+    if (!rpcUrl || !rpcName) { RpcToast("Please provide both name and URL.", "warn"); return }
 
     try {
       await saveRpcUrl(address as string, rpcUrl, rpcName);
-      alert("RPC URL saved successfully!");
+      RpcToast("RPC URL saved successfully!", "success");
       setRpcUrl("");
       setRpcName("");
       onSave(); // Trigger refresh after saving
     } catch (error) {
       console.error("Failed to save RPC URL", error);
-      alert("Failed to save RPC URL.");
+      RpcToast("Failed to save RPC URL.", "error");
     }
   }, [rpcUrl, rpcName, address, onSave]);
 
@@ -135,7 +135,7 @@ const RpcTable: React.FC<{
                       <input
                         value={editUrl}
                         onChange={(e) => setEditUrl(e.target.value)}
-                        className="border p-1 rounded"
+                        className="w-full bg-gray-100 dark:bg-[#191919] dark:text-white text-black-2 border border-gray-600 rounded-md p-3"
                       />
                     ) : (
                       item.rpcUrl
@@ -146,7 +146,7 @@ const RpcTable: React.FC<{
                       <input
                         value={editName}
                         onChange={(e) => setEditName(e.target.value)}
-                        className="border p-1 rounded"
+                        className="w-full bg-gray-100 dark:bg-[#191919] dark:text-white text-black-2 border border-gray-600 rounded-md p-3"
                       />
                     ) : (
                       item.name
@@ -158,7 +158,7 @@ const RpcTable: React.FC<{
                   <td className="p-4 border border-[#434C59]">
                     {editMode === item.name ? (
                       <button
-                        className="bg-green-500 text-white px-4 py-1 rounded-md"
+                        className="btn-rest text-white px-4 py-1 rounded-md b hover:bg-gray-600 w-full sm:w-1/2 font-semibold"
                         onClick={() => {
                           onUpdate(editName, editUrl);
                           setEditMode(null);
@@ -169,7 +169,7 @@ const RpcTable: React.FC<{
                     ) : (
                       <>
                         <button
-                          className="bg-blue-500 text-white px-4 py-1 rounded-md mr-2"
+                          className="bg-primary-gradient text-white px-4 py-1 rounded-md font-semibold  mr-2"
                           onClick={() => {
                             setEditMode(item.name);
                             setEditName(item.name);
@@ -179,7 +179,7 @@ const RpcTable: React.FC<{
                           Edit
                         </button>
                         <button
-                          className="bg-red-500 text-white px-4 py-1 rounded-md"
+                          className="btn-rest text-white px-4 py-1 rounded-md b hover:bg-gray-600 w-full sm:w-1/2 font-semibold"
                           onClick={() => onDelete(item.name)}
                         >
                           Delete
@@ -235,7 +235,7 @@ const SaveUrls: React.FC = () => {
 
   const handleListRpcUrls = useCallback(async () => {
     if (!isConnected || !address) {
-      alert("Please connect your wallet");
+      RpcToast("Please connect your wallet", "error");
       return;
     }
     try {
@@ -258,11 +258,13 @@ const SaveUrls: React.FC = () => {
       try {
         setLoading(true);
         await deleteRpcUrl(address as string, name);
-        alert("RPC URL deleted successfully!");
+        RpcToast("RPC URL deleted successfully!", "success");
+      
         handleListRpcUrls();
       } catch (error) {
         console.error("Failed to delete RPC URL", error);
-        alert("Failed to delete RPC URL.");
+       
+        RpcToast("Failed to delete RPC URL.", "error");
       } finally {
         setLoading(false);
       }
@@ -275,11 +277,13 @@ const SaveUrls: React.FC = () => {
       try {
         setLoading(true);
         await updateRpcUrl(address as string, name, name, rpcUrl);
-        alert("RPC URL updated successfully!");
+   
+        RpcToast("RPC URL upadted successfully!", "success");
         handleListRpcUrls();
       } catch (error) {
         console.error("Failed to update RPC URL", error);
-        alert("Failed to update RPC URL.");
+    
+        RpcToast("Failded To Update RPC URL!", "error");
       } finally {
         setLoading(false);
       }
@@ -326,6 +330,7 @@ const SaveUrls: React.FC = () => {
           onRefresh={handleListRpcUrls}
         />
       </div>
+      <ToastContainer />
     </DefaultLayout>
   );
 };

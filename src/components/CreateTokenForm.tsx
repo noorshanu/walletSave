@@ -85,9 +85,9 @@ const CreateTokenForm = () => {
       <form className="space-y-6 w-full " onSubmit={handleSubmit}>
         {/* Select Network */}
         <div>
-          <label className="block text-gray-300 text-sm font-medium mb-1">Select Network (RPC)</label>
+          <label className="block dark:text-white text-black-2 text-sm font-medium mb-1">Select Network (RPC)</label>
           <select
-            className="w-full bg-[#191919] text-white border border-gray-600 rounded-md p-3"
+            className="w-full bg-gray-100 dark:bg-[#191919] dark:text-white text-black-2 border border-gray-600 rounded-md p-3"
             value={selectedRpcUrl}
             onChange={e => setSelectedRpcUrl(e.target.value)}
             required
@@ -110,19 +110,19 @@ const CreateTokenForm = () => {
         {/* Private Key */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       <div>
-          <label className="block text-gray-300 text-sm font-medium mb-1">* Owner Private Key</label>
+          <label className="block dark:text-white text-black-2 text-sm font-medium mb-1">* Owner Private Key</label>
           <input
             type="password"
             placeholder="Enter your private key"
             value={privateKey}
             onChange={e => setPrivateKey(e.target.value)}
-            className="w-full bg-[#191919] text-white border border-gray-600 rounded-md p-3"
+            className="w-full bg-gray-100 dark:bg-[#191919] dark:text-white text-black-2 border border-gray-600 rounded-md p-3"
             required
           />
         </div>
         <div>
-          <label className="block text-gray-300 text-sm font-medium mb-1">* TOKEN TYPE</label>
-          <select className="w-full bg-[#191919] text-white border border-gray-600 rounded-md p-3">
+          <label className="block dark:text-white text-black-2 text-sm font-medium mb-1">* TOKEN TYPE</label>
+          <select className="w-full bg-gray-100 dark:bg-[#191919] dark:text-white text-black-2 border border-gray-600 rounded-md p-3">
             <option value="">Select Token Type</option>
             <option value="">Standard token</option>
           </select>
@@ -132,24 +132,24 @@ const CreateTokenForm = () => {
         {/* Token Name and Symbol */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-gray-300 text-sm font-medium mb-1">* TOKEN NAME</label>
+            <label className="block dark:text-white text-black-2 text-sm font-medium mb-1">* TOKEN NAME</label>
             <input
               type="text"
               placeholder="Ex: Ethereum"
               value={tokenName}
               onChange={e => setTokenName(e.target.value)}
-              className="w-full bg-[#191919] text-white border border-gray-600 rounded-md p-3"
+              className="w-full bg-gray-100 dark:bg-[#191919] dark:text-white text-black-2 border border-gray-600 rounded-md p-3"
               required
             />
           </div>
           <div>
-            <label className="block text-gray-300 text-sm font-medium mb-1">* TOKEN SYMBOL</label>
+            <label className="block dark:text-white text-black-2 text-sm font-medium mb-1">* TOKEN SYMBOL</label>
             <input
               type="text"
               placeholder="Ex: ETH"
               value={tokenSymbol}
               onChange={e => setTokenSymbol(e.target.value)}
-              className="w-full bg-[#191919] text-white border border-gray-600 rounded-md p-3"
+              className="w-full bg-gray-100 dark:bg-[#191919] dark:text-white text-black-2 border border-gray-600 rounded-md p-3"
               required
             />
           </div>
@@ -158,23 +158,23 @@ const CreateTokenForm = () => {
         {/* Token Decimals and Total Supply */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-gray-300 text-sm font-medium mb-1">* TOKEN DECIMALS</label>
+            <label className="block dark:text-white text-black-2 text-sm font-medium mb-1">* TOKEN DECIMALS</label>
             <input
               type="number"
               value={tokenDecimals}
               onChange={e => setTokenDecimals(Number(e.target.value))}
-              className="w-full bg-[#191919] text-white border border-gray-600 rounded-md p-3"
+              className="w-full bg-gray-100 dark:bg-[#191919] dark:text-white text-black-2 border border-gray-600 rounded-md p-3"
               required
             />
           </div>
           <div>
-            <label className="block text-gray-300 text-sm font-medium mb-1">* TOTAL SUPPLY</label>
+            <label className="block dark:text-white text-black-2 text-sm font-medium mb-1">* TOTAL SUPPLY</label>
             <input
               type="text"
               placeholder="Ex: 1000000000"
               value={totalSupply}
               onChange={e => setTotalSupply(e.target.value)}
-              className="w-full bg-[#191919] text-white border border-gray-600 rounded-md p-3"
+              className="w-full bg-gray-100 dark:bg-[#191919] dark:text-white text-black-2 border border-gray-600 rounded-md p-3"
               required
             />
           </div>
