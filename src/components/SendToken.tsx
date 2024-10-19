@@ -68,7 +68,7 @@ const SendToken = () => {
   };
 
   return (
-    <div className="mx-auto mt-8 w-full overflow-hidden rounded-lg bg-white px-4 py-4 shadow-lg dark:bg-[#191919]">
+    <div className="mx-auto mt-8 w-full overflow-hidden rounded-lg bg-white px-4 py-4 shadow-lg dark:bg-[#191919] ">
       <h2 className="mb-4 text-2xl font-bold">Send Token</h2>
 
       {message && <div className="text-red-500">{message}</div>}

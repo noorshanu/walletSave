@@ -6,7 +6,7 @@ function page() {
   return (
    <>
    <DefaultLayout>
-   <div>
+   <div className=' h-[100vh]'>
         <SendTransaction/>
     </div>
    </DefaultLayout>
