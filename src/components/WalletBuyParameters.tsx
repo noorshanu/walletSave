@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
-// React Icons for Plus and Minus buttons
+import { RiExpandUpDownFill } from "react-icons/ri";
 import { IoMdRefreshCircle } from "react-icons/io";
 
 interface Row {
@@ -38,14 +38,42 @@ const WalletBuyParameters = () => {
 
       <div className="overflow-x-auto">
         <table className="w-full table-auto border-collapse border border-gray-300">
-          <thead className="bg-gray-100 dark:bg-[#22223e]">
+          <thead className="">
             <tr className="text-left">
-              <th className="border p-3">* Private Key</th>
-              <th className="border p-3">Address</th>
-              <th className="border p-3">Native Token Balance</th>
-              <th className="border p-3">Token Balance</th>
-              <th className="border p-3">Action</th>
-              <th className="border p-3"></th>
+              <th className="border p-3">
+              <div className="flex items-center justify-between gap-4">
+                    {" "}
+                    Private Key <RiExpandUpDownFill />
+                  </div>
+              </th>
+              <th className="border p-3">
+              <div className="flex items-center justify-between gap-4">
+                    {" "}
+                    Address <RiExpandUpDownFill />
+                  </div>
+               </th>
+              <th className="border p-3">
+              <div className="flex items-center justify-between gap-4">
+                    {" "}
+                    Native Token Balance <RiExpandUpDownFill />
+                  </div>
+                </th>
+              <th className="border p-3">
+              <div className="flex items-center justify-between gap-4">
+                    {" "}
+                    Token Balance <RiExpandUpDownFill />
+                  </div>
+               </th>
+              <th className="border p-3">
+              <div className="flex items-center justify-between gap-4">
+                    {" "}
+                    Action <RiExpandUpDownFill />
+                  </div>
+              </th>
+              <th className="border p-3">  <div className="flex items-center justify-between gap-4">
+                    {" "}
+                    Add <RiExpandUpDownFill />
+                  </div></th>
             </tr>
           </thead>
           <tbody>
@@ -66,24 +94,24 @@ const WalletBuyParameters = () => {
                 <td className="border p-3 text-center">–</td>
                 <td className="border p-3">
                   <div className="flex gap-4 justify-center items-center">
-                    <button className="text-sm bg-green-600 rounded-full py-1 px-6 text-white font-semibold">
+                    <button className="text-sm bg-green-600 rounded-md py-1 px-6 text-white font-semibold">
                       Fund
                     </button>
-                    <button className="text-sm bg-red-600 rounded-full py-1 px-6 text-white font-semibold">Sell</button>
-                    <button className="text-sm bg-green-600 rounded-full py-1 px-6 text-white font-semibold">
+                    <button className="text-sm bg-red-600 rounded-md py-1 px-6 text-white font-semibold">Sell</button>
+                    <button className="text-sm bg-green-600 rounded-md py-1 px-6 text-white font-semibold">
                       Buy
                     </button>
                   </div>
                 </td>
                 <td className="border p-3 text-center">
                   {index === rows.length - 1 ? (
-                    <button onClick={addRow} className="p-2 bg-green-600 border border-green-300 rounded-full">
+                    <button onClick={addRow} className="p-2 bg-green-600 border border-green-300 rounded-lg">
                       <AiOutlinePlus />
                     </button>
                   ) : (
                     <button
                       onClick={() => removeRow(index)}
-                      className="p-2 bg-red-600 border border-red-300 rounded-full"
+                      className="p-2 bg-red-600 border border-red-300 rounded-lg"
                     >
                       <AiOutlineMinus />
                     </button>
@@ -96,7 +124,7 @@ const WalletBuyParameters = () => {
       </div>
 
       <div className="mt-4">
-        <button className="text-sm text-orange-500 flex items-center">
+        <button className="text-sm text-black-2 dark:text-white flex items-center">
           <span className="mr-2">
             <AiOutlinePlus />
           </span>
