@@ -6,7 +6,7 @@ function page() {
   return (
 <>
 <DefaultLayout>
-<div className=' max-w-6xl mx-auto'>
+<div className=' w-full mx-auto'>
 
 <TokenBundleUI/>
 </div>

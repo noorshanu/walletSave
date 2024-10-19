@@ -28,11 +28,11 @@ const WalletBuyParameters = () => {
   };
 
   return (
-    <div className="bg-white dark:bg-[#22223e] p-6 rounded-lg shadow-md max-w-6xl mx-auto border">
-      <div className="flex justify-between items-center">
+    <div className="">
+      <div className="flex justify-between items-center mb-4">
         <h2 className="text-lg font-semibold dark:text-white text-black mb-4">Wallet Settings</h2>
-        <button className="text-green-600 text-lg flex items-center gap-2">
-          Refresh <IoMdRefreshCircle />
+        <button className="bg-primary-gradient  rounded-md px-4 py-2 font-semibold text-white flex items-center gap-2">
+        <IoMdRefreshCircle />   Refresh 
         </button>
       </div>
 
