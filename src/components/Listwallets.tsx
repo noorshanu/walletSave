@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { listWallets } from "../utils/api"; // Adjust path as needed
 import { useAccount } from "wagmi"; // For wallet connection
+import { RiExpandUpDownFill } from "react-icons/ri";
 
 // Interface for the Wallet type expected from API
 interface Wallet {
@@ -81,11 +82,41 @@ const ListWallets = () => {
           <table className="mt-4 min-w-full table-auto border-collapse">
             <thead>
               <tr>
-                <th className="border p-2">No.</th>
-                <th className="border p-2">Wallet Address</th>
-                <th className="border p-2">Wallet Type</th>
-                <th className="border p-2">Funding Wallet</th>
-                <th className="border p-2">Worker Wallet</th>
+                <th className="border p-2 text-black-2 dark:text-white">
+                  {" "}
+                  <div className="flex items-center justify-between gap-4">
+                    {" "}
+                    No <RiExpandUpDownFill />
+                  </div>
+                </th>
+                <th className="border p-2 text-black-2 dark:text-white">
+                <div className="flex items-center justify-between gap-4">
+                    {" "}
+                    Wallet Address <RiExpandUpDownFill />
+                  </div>
+                 
+                </th>
+                <th className="border p-2 text-black-2 dark:text-white">
+                <div className="flex items-center justify-between gap-4">
+                    {" "}
+                    Wallet Type <RiExpandUpDownFill />
+                  </div>
+                
+                </th>
+                <th className="border p-2 text-black-2 dark:text-white">
+                <div className="flex items-center justify-between gap-4">
+                    {" "}
+                    Funding Wallet <RiExpandUpDownFill />
+                  </div>
+                 
+                </th>
+                <th className="border p-2 text-black-2 dark:text-white">
+                <div className="flex items-center justify-between gap-4">
+                    {" "}
+                    Worker Wallet <RiExpandUpDownFill />
+                  </div>
+                  
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -94,12 +125,16 @@ const ListWallets = () => {
                   <td className="border p-2">
                     {(currentPage - 1) * walletsPerPage + index + 1}
                   </td>
-                  <td className="border p-2">{wallet.walletAddress}</td>
-                  <td className="border p-2">{getWalletType(wallet)}</td>
-                  <td className="border p-2">
+                  <td className="border p-2 text-black-2 dark:text-white">
+                    {wallet.walletAddress}
+                  </td>
+                  <td className="border p-2 text-black-2 dark:text-white">
+                    {getWalletType(wallet)}
+                  </td>
+                  <td className="border p-2 text-black-2 dark:text-white">
                     {wallet.isFundingWallet ? "Yes" : "No"}
                   </td>
-                  <td className="border p-2">
+                  <td className="border p-2 text-black-2 dark:text-white">
                     {wallet.isWorkerWallet ? "Yes" : "No"}
                   </td>
                 </tr>
@@ -110,7 +145,7 @@ const ListWallets = () => {
           {/* Pagination Controls */}
           <div className="mt-4 flex justify-between">
             <button
-              className="rounded bg-blue-500 px-4 py-2 text-white"
+              className="btn-rest rounded px-4 py-2 text-white"
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
             >
@@ -120,7 +155,7 @@ const ListWallets = () => {
               Page {currentPage} of {totalPages}
             </div>
             <button
-              className="rounded bg-blue-500 px-4 py-2 text-white"
+              className="btn-rest rounded px-4 py-2 text-white"
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
             >
