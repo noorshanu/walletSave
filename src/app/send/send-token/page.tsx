@@ -6,7 +6,7 @@ function page() {
   return (
   <>
   <DefaultLayout>
-  <div>
+  <div className=' h-[100vh]'>
         <SendToken/>
     </div>
   </DefaultLayout>

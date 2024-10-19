@@ -1,18 +1,38 @@
 "use client";
 
-import React, { useState } from "react";
-import { sendToken } from "../utils/api";
+import React, { useState, useEffect } from "react";
+import { sendToken, listRpcUrls } from "../utils/api"; // Import the listRpcUrls API
 import { useAccount } from "wagmi";
 
 const SendToken = () => {
   const { address, isConnected } = useAccount(); // Get the connected wallet address
-  const [rpcUrl, setRpcUrl] = useState<string>("https://eth.llaarpc.com");
+  const [rpcUrls, setRpcUrls] = useState<{ name: string; rpcUrl: string }[]>([]); // Store fetched RPC URLs
+  const [selectedRpcUrl, setSelectedRpcUrl] = useState<string>(""); // Selected RPC URL
   const [tokenAddress, setTokenAddress] = useState<string>("");
   const [fromAddress, setFromAddress] = useState<string>("");
   const [toAddress, setToAddress] = useState<string>("");
   const [amount, setAmount] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string | null>(null);
+
+  // Fetch RPC URLs from API when component mounts
+  useEffect(() => {
+    const fetchRpcUrls = async () => {
+      try {
+        if (address) {
+          const response = await listRpcUrls(address);
+          const rpcList = response.data.rpcUrls;
+          setRpcUrls(rpcList); // Set the fetched RPC URLs
+          if (rpcList.length > 0) {
+            setSelectedRpcUrl(rpcList[0].rpcUrl); // Set default selection to the first RPC
+          }
+        }
+      } catch (error) {
+        console.error("Failed to fetch RPC URLs:", error);
+      }
+    };
+    fetchRpcUrls();
+  }, [address]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,17 +41,22 @@ const SendToken = () => {
 
     const payload = {
       ownerWalletAddress: address, // Automatically use the connected wallet address
-      rpcUrl,
+      rpcUrl: selectedRpcUrl,
       tokenAddress,
       fromAddress,
       toAddress,
       amount,
     };
 
-    console.log("Submitting token transfer with payload:", payload);
-
     try {
-      const response = await sendToken(address as string, rpcUrl, tokenAddress, fromAddress, toAddress, amount);
+      const response = await sendToken(
+        address as string,
+        selectedRpcUrl,
+        tokenAddress,
+        fromAddress,
+        toAddress,
+        amount
+      );
       console.log("API response:", response);
       setMessage("Token sent successfully!");
     } catch (error) {
@@ -43,74 +68,95 @@ const SendToken = () => {
   };
 
   return (
-    <div className=" w-full px-4 py-4 mx-auto mt-8  bg-white dark:bg-[#1c1d32] shadow-lg rounded-lg overflow-hidden border border-green-700">
-      <h2 className="text-2xl font-bold mb-4">Send Token</h2>
+    <div className="mx-auto mt-8 w-full overflow-hidden rounded-lg bg-white px-4 py-4 shadow-lg dark:bg-[#191919]">
+      <h2 className="mb-4 text-2xl font-bold">Send Token</h2>
 
       {message && <div className="text-red-500">{message}</div>}
 
-      <form onSubmit={handleSubmit} className="space-y-4 w-full ">
-        <div>
-          <label className="block mb-2">RPC URL</label>
-          <input
-            type="text"
-            className="border p-2 w-full"
-            value={rpcUrl}
-            onChange={e => setRpcUrl(e.target.value)}
-            required
-          />
+      <form onSubmit={handleSubmit} className="w-full space-y-4 ">
+        {/* Select RPC URL */}
+        <div className="flex w-full items-center gap-4">
+          <div className="w-full sm:w-1/2">
+            <label className="mb-2 block">Select RPC URL</label>
+            <select
+              value={selectedRpcUrl}
+              onChange={(e) => setSelectedRpcUrl(e.target.value)}
+              className="w-full p-2 border border-[#434C59] bg-white rounded-md shadow-lg dark:bg-[#191919]"
+            >
+              {rpcUrls.length > 0 ? (
+                rpcUrls.map((url) => (
+                  <option key={url.name} value={url.rpcUrl}>
+                     {url.rpcUrl}
+                  </option>
+                ))
+              ) : (
+                <option disabled>No RPC URLs found</option>
+              )}
+            </select>
+          </div>
+
+          <div className="w-full sm:w-1/2">
+            <label className="mb-2 block">Token Address</label>
+            <input
+              type="text"
+              className="w-full border p-2 border-[#434C59] bg-white px-4 py-2 rounded-md shadow-lg dark:bg-[#191919]"
+              value={tokenAddress}
+              onChange={(e) => setTokenAddress(e.target.value)}
+              required
+            />
+          </div>
+        </div>
+
+        {/* Address and Amount Inputs */}
+        <div className="flex w-full items-center gap-4">
+          <div className="w-full sm:w-1/2">
+            <label className="mb-2 block">From Address</label>
+            <input
+              type="text"
+              className="w-full border p-2 border-[#434C59] bg-white px-4 py-2 rounded-md shadow-lg dark:bg-[#191919]"
+              value={fromAddress}
+              onChange={(e) => setFromAddress(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="w-full sm:w-1/2">
+            <label className="mb-2 block">To Address</label>
+            <input
+              type="text"
+              className="w-full border p-2 border-[#434C59] bg-white px-4 py-2 rounded-md shadow-lg dark:bg-[#191919]"
+              value={toAddress}
+              onChange={(e) => setToAddress(e.target.value)}
+              required
+            />
+          </div>
         </div>
 
         <div>
-          <label className="block mb-2">Token Address</label>
+          <label className="mb-2 block">Amount</label>
           <input
             type="text"
-            className="border p-2 w-full"
-            value={tokenAddress}
-            onChange={e => setTokenAddress(e.target.value)}
-            required
-          />
-        </div>
-
-        <div>
-          <label className="block mb-2">From Address</label>
-          <input
-            type="text"
-            className="border p-2 w-full"
-            value={fromAddress}
-            onChange={e => setFromAddress(e.target.value)}
-            required
-          />
-        </div>
-
-        <div>
-          <label className="block mb-2">To Address</label>
-          <input
-            type="text"
-            className="border p-2 w-full"
-            value={toAddress}
-            onChange={e => setToAddress(e.target.value)}
-            required
-          />
-        </div>
-
-        <div>
-          <label className="block mb-2">Amount</label>
-          <input
-            type="text"
-            className="border p-2 w-full"
+            className="w-full border p-2 border-[#434C59] bg-white px-4 py-2 rounded-md shadow-lg dark:bg-[#191919]"
             value={amount}
-            onChange={e => setAmount(e.target.value)}
+            onChange={(e) => setAmount(e.target.value)}
             required
           />
         </div>
 
-        <button
-          type="submit"
-          className="bg-primary-gradient text-white py-2 px-4 rounded-full"
-          disabled={loading || !isConnected}
-        >
-          {loading ? "Sending..." : isConnected ? "Send Token" : "Connect Wallet"}
-        </button>
+        {/* Submit Button */}
+        <div className="w-full">
+          <button
+            type="submit"
+            className="bg-primary-gradient rounded-md font-semibold px-4 py-2 text-white w-full"
+            disabled={loading || !isConnected}
+          >
+            {loading
+              ? "Sending..."
+              : isConnected
+              ? "Send Token"
+              : "Connect Wallet"}
+          </button>
+        </div>
       </form>
     </div>
   );
