@@ -1,6 +1,8 @@
+/* eslint-disable @next/next/no-img-element */
 import { useState } from 'react';
-import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import { FaCircleQuestion } from "react-icons/fa6";
 import 'react-circular-progressbar/dist/styles.css';
+import CoinGreed from './CoinGreed';
 
 type Chain = 'ETH' | 'BTC' | 'BSC' | 'Polygon' | 'zkSync' | 'Base';
 
@@ -37,7 +39,7 @@ const GasFeeUI = () => {
           <select
             value={selectedChain}
             onChange={(e) => setSelectedChain(e.target.value as Chain)} // Cast value to the correct type
-            className="block w-full p-3 border-none bg-[#1f2436] text-white rounded-lg focus:ring-2 focus:ring-blue-500"
+            className="block w-full p-3 border bg-[#191919] border-[#434C59] text-white rounded-md"
           >
             {chains.map((chain) => (
               <option key={chain.symbol} value={chain.symbol}>
@@ -47,42 +49,37 @@ const GasFeeUI = () => {
           </select>
         </div>
 
-        <div className="flex justify-around items-center mt-4 p-4 bg-[#1f2436] rounded-lg">
+        <div className="flex justify-around items-center mt-4 p-4 bg-[#191919] rounded-lg">
           <div className="text-center">
-            <p className="text-blue-500 font-bold">Fast</p>
-            <p className="text-blue-500">{fees.fast} Gwei</p>
+            <img src="/rock.png" alt="" className=' mx-auto' />
+            <p className="text-white font-normal">Fast</p>
+            <p className="text-white font-bold">{fees.fast} Gwei</p>
           </div>
           <div className="text-center">
-            <p className="text-orange-500 font-bold">Normal</p>
-            <p className="text-orange-500">{fees.normal} Gwei</p>
+            <img src="/car.png" alt="" className=' mx-auto' />
+            <p className="text-white font-normal">Normal</p>
+            <p className="text-white font-bold">{fees.normal} Gwei</p>
           </div>
           <div className="text-center">
-            <p className="text-green-500 font-bold">Slow</p>
-            <p className="text-green-500">{fees.slow} Gwei</p>
+          <img src="/tor.png" alt="" className=' mx-auto' />
+            <p className="text-white font-normal">Slow</p>
+            <p className="text-white font-bold">{fees.slow} Gwei</p>
           </div>
         </div>
 
-        <div className="text-right text-sm text-gray-500 mt-2">
-          Updated at 10-15 16:39:24
-        </div>
+        
       </div>
 
       {/* Crypto Fear & Greed Index */}
-      <div className="bg-[#191919] p-6 rounded-lg shadow-md w-full sm:w-1/2  flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-white font-bold mb-2">Crypto Fear & Greed Index</p>
-          <CircularProgressbar
-            value={fearGreedIndex}
-            maxValue={100}
-            text={`${fearGreedIndex}`}
-            styles={buildStyles({
-              pathColor: fearGreedIndex > 50 ? '#00FF00' : '#FF6347',
-              textColor: '#FFFFFF',
-              trailColor: '#2f374b',
-              backgroundColor: '#191919',
-            })}
-          />
-          <p className="text-green-400 mt-2">Greed</p>
+      <div className="bg-[#191919] p-6 rounded-lg shadow-md w-full sm:w-1/2   ">
+        <div className="">
+          <p className="text-white font-bold mb-2 flex items-center gap-3">Crypto Fear & Greed Index <FaCircleQuestion /></p>
+      
+
+          <div className=' flex justify-center items-center'>
+          <CoinGreed/>
+          </div>
+          <p className="text-green-400 mt-2 text-center">Greed</p>
         </div>
       </div>
     </div>
