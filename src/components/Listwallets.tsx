@@ -79,6 +79,7 @@ const ListWallets = () => {
         <div>Loading...</div>
       ) : (
         <>
+          <div className=" w-[350px]  sm:w-full overflow-x-auto">
           <table className="mt-4 min-w-full table-auto border-collapse">
             <thead>
               <tr>
@@ -141,6 +142,8 @@ const ListWallets = () => {
               ))}
             </tbody>
           </table>
+
+          </div>
 
           {/* Pagination Controls */}
           <div className="mt-4 flex justify-between">
