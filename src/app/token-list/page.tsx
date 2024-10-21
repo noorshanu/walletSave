@@ -129,16 +129,16 @@ const TokenList = () => {
     <DefaultLayout>
       <div className="container mx-auto h-full p-4">
         {/* Header */}
-        <h2 className="mb-6 flex items-center gap-2 text-2xl font-bold text-white">
+        <h2 className="mb-6 flex items-center gap-2 text-2xl font-bold dark:text-white text-black-2">
           {" "}
           <FaList /> Token List
         </h2>
 
         {/* Table */}
         <div className="overflow-x-auto border  shadow-md">
-          <table className="min-w-full bg-[#191919] text-white">
+          <table className="min-w-full bg-white dark:bg-[#191919] text-black-2 dark:text-white">
             <thead>
-              <tr className="bg-[#191919]">
+              <tr className="bg-white dark:bg-[#191919]">
                 <th className="border-[ #4C4C4C] border-b border-r p-4 text-left">
                   {" "}
                   <div className="flex items-center justify-between gap-4">

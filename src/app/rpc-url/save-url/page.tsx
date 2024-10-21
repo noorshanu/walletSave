@@ -39,7 +39,7 @@ const AddRpcUrl: React.FC<{ onSave: () => void }> = ({ onSave }) => {
   }, [rpcUrl, rpcName, address, onSave]);
 
   return (
-    <div className="bg-gray-300 shadow-md dark:bg-[#191919] px-4 py-6 rounded-md mb-6">
+    <div className="bg-white shadow-md dark:bg-[#191919] px-4 py-6 rounded-md mb-6">
       <h1 className="text-2xl flex items-center gap-2 font-bold dark:text-white text-black-2">
         <PiLinkSimpleDuotone /> ADD RPC URL
       </h1>
@@ -108,10 +108,10 @@ const RpcTable: React.FC<{
   return (
     <div className="mt-4">
      
-      <div className="flex items-center justify-between mb-4 p-2 bg-gray-100 dark:bg-[#191919] rounded-lg shadow-md">
+      <div className="flex items-center justify-between mb-4 p-2 bg-white dark:bg-[#191919] rounded-lg shadow-md">
       {/* Dropdown for Chain Selection */}
       <div className="relative flex items-center w-full sm:w-1/2">
-        <select className="appearance-none block w-full px-4 py-2 pr-8 bg-gray-300 dark:bg-[#191919] text-white border border-gray-600 rounded-md focus:outline-none focus:ring focus:border-blue-300">
+        <select className="appearance-none block w-full px-4 py-2 pr-8 bg-white dark:bg-[#191919] text-black-2 dark:text-white border border-gray-600 rounded-md focus:outline-none focus:ring focus:border-blue-300">
           <option value="ETH">ETH</option>
           <option value="BTC">BTC</option>
           <option value="BSC">BSC</option>
@@ -151,7 +151,7 @@ const RpcTable: React.FC<{
       {loading ? (
         <Loader />
       ) : (
-        <table className="min-w-full bg-gray-100 shadow-md  dark:bg-[#191919]  overflow-hidden border  border-[#434C59]">
+        <table className="min-w-full bg-white shadow-md  dark:bg-[#191919]  overflow-hidden border  border-[#434C59]">
           <thead className="  border-[#434C59]">
             <tr className="bg-gray-100 shadow-md  dark:bg-[#191919] border-[#434C59] border">
               <th className="text-left p-4 border border-[#434C59]">No</th>
@@ -335,7 +335,7 @@ const SaveUrls: React.FC = () => {
     <DefaultLayout>
       <div className="w-full p-4 h-full">
         <AddRpcUrl onSave={handleListRpcUrls} />
-      <div className="bg-gray-300 shadow-md  dark:bg-[#191919] rounded-md  py-4 px-4 ">
+      <div className="bg-white shadow-md  dark:bg-[#191919] rounded-md  py-4 px-4 ">
       <div className="flex gap-4 mb-6  border-b border-gray-400">
       {/* List RPC URLs Tab */}
       <button

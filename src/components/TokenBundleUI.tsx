@@ -7,11 +7,11 @@ import WalletBuyParameters from "./WalletBuyParameters";
 const TokenBundleUI = () => {
   return (
     <div>
-      <div className="mx-auto w-full px-4  rounded-md bg-gray-100 py-8 shadow-lg dark:bg-[#191919]">
+      <div className="mx-auto w-full px-4  rounded-md bg-white py-8 shadow-lg dark:bg-[#191919]">
         {/* Header Section */}
         <div className=" border-b  border-[#434C59]">
           <div className="mb-6 flex items-center justify-between px-8 py-4">
-            <h1 className="text-2xl font-bold text-white">
+            <h1 className="text-2xl font-bold text-black-2 dark:text-white">
               Token: CyZq3sULrbByuDc...
             </h1>
             <button className="bg-primary-gradient rounded-md px-4 py-2 text-white">
@@ -72,7 +72,7 @@ const TokenBundleUI = () => {
         <LiquidityForm />
         
       </div>
-      <div className="mx-auto my-4 w-full rounded-md  bg-gray-100 px-8 py-8 shadow-lg dark:bg-[#191919]">
+      <div className="mx-auto my-4 w-full rounded-md  bg-white px-8 py-8 shadow-lg dark:bg-[#191919]">
       <WalletBuyParameters />
       <div className="flex items-center justify-center">
         <button className="bg-primary-gradient mt-4 w-full rounded-md px-4 py-2 font-semibold text-white ">

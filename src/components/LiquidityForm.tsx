@@ -2,7 +2,7 @@ import React from "react";
 
 const LiquidityForm = () => {
   return (
-    <div className=" mx-auto my-4 w-full rounded-md  bg-gray-100 px-8 py-8 shadow-lg dark:bg-[#191919]">
+    <div className=" mx-auto my-4 w-full rounded-md  bg-white px-8 py-8 shadow-md dark:bg-[#191919]">
       <h2 className="mb-4 text-lg font-semibold text-black dark:text-white">
         Add liquidity
       </h2>

@@ -77,7 +77,7 @@ const CreateTokenForm = () => {
   };
 
   return (
-    <div className=" bg-gray-100 shadow-md  dark:bg-[#191919] p-8 rounded-md w-full  mx-auto pb-12">
+    <div className=" bg-white shadow-md  dark:bg-[#191919] p-8 rounded-md w-full  mx-auto pb-12">
       {/* Header */}
       <h2 className="text-3xl font-bold text-black dark:text-white mb-6">Create Token</h2>
 
