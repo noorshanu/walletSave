@@ -51,7 +51,7 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body suppressHydrationWarning={true}>
+      <body suppressHydrationWarning={true} className="bg-whiten dark:bg-black">
       <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
         <RainbowKitProvider>

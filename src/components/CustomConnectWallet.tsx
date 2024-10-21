@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react'
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 
@@ -58,7 +59,7 @@ function CustomConnectWallet() {
                     onClick={openChainModal}
                     style={{ display: 'flex', alignItems: 'center' }}
                     type="button"
-                    className='bg-btn rounded-md p-2 text-white'
+                    className='bg-btn rounded-md p-1 text-white text-base'
                    
                   >
                     {chain.hasIcon && (
