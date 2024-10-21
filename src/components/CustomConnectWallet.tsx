@@ -59,7 +59,7 @@ function CustomConnectWallet() {
                     onClick={openChainModal}
                     style={{ display: 'flex', alignItems: 'center' }}
                     type="button"
-                    className='bg-btn rounded-md p-1 text-white text-base'
+                    className='bg-btn rounded-full p-1 text-white text-sm sm:text-base'
                    
                   >
                     {chain.hasIcon && (
@@ -86,7 +86,7 @@ function CustomConnectWallet() {
                     {chain.name}
                   </button>
 
-                  <button onClick={openAccountModal} type="button" className='bg-btn py-2 px-6 rounded-md font-medium text-lg text-white '  >
+                  <button onClick={openAccountModal} type="button" className='bg-btn py-2 px-6 rounded-md font-medium text-sm sm:text-base text-white '  >
                     {account.displayName}
                     {account.displayBalance
                       ? ` (${account.displayBalance})`

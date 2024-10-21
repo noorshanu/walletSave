@@ -69,7 +69,7 @@ const SendToken = () => {
 
   return (
     <div className="mx-auto mt-8 w-full overflow-hidden rounded-lg bg-white px-4 py-4 shadow-lg dark:bg-[#191919] ">
-      <h2 className="mb-4 text-2xl font-bold">Send Token</h2>
+      <h2 className="mb-4 text-2xl font-bold text-black-2 dark:text-white">Send Token</h2>
 
       {message && <div className="text-red-500">{message}</div>}
 
@@ -77,7 +77,7 @@ const SendToken = () => {
         {/* Select RPC URL */}
         <div className="flex w-full items-center gap-4 flex-col sm:flex-row">
           <div className="w-full sm:w-1/2">
-            <label className="mb-2 block">Select RPC URL</label>
+            <label className="mb-2 block text-black-2 dark:text-white">Select RPC URL</label>
             <select
               value={selectedRpcUrl}
               onChange={(e) => setSelectedRpcUrl(e.target.value)}
@@ -96,7 +96,7 @@ const SendToken = () => {
           </div>
 
           <div className="w-full sm:w-1/2">
-            <label className="mb-2 block">Token Address</label>
+            <label className="mb-2 block text-black-2 dark:text-white">Token Address</label>
             <input
               type="text"
               className="w-full border p-2 border-[#434C59] bg-white px-4 py-2 rounded-md shadow-lg dark:bg-[#191919]"
@@ -110,7 +110,7 @@ const SendToken = () => {
         {/* Address and Amount Inputs */}
         <div className="flex w-full items-center gap-4 flex-col sm:flex-row">
           <div className="w-full sm:w-1/2">
-            <label className="mb-2 block">From Address</label>
+            <label className="mb-2 block text-black-2 dark:text-white">From Address</label>
             <input
               type="text"
               className="w-full border p-2 border-[#434C59] bg-white px-4 py-2 rounded-md shadow-lg dark:bg-[#191919]"
@@ -121,7 +121,7 @@ const SendToken = () => {
           </div>
 
           <div className="w-full sm:w-1/2">
-            <label className="mb-2 block">To Address</label>
+            <label className="mb-2 block text-black-2 dark:text-white">To Address</label>
             <input
               type="text"
               className="w-full border p-2 border-[#434C59] bg-white px-4 py-2 rounded-md shadow-lg dark:bg-[#191919]"
@@ -133,7 +133,7 @@ const SendToken = () => {
         </div>
 
         <div>
-          <label className="mb-2 block">Amount</label>
+          <label className="mb-2 block text-black-2 dark:text-white">Amount</label>
           <input
             type="text"
             className="w-full border p-2 border-[#434C59] bg-white px-4 py-2 rounded-md shadow-lg dark:bg-[#191919]"
