@@ -71,11 +71,11 @@ const CreateWorkerWallet = () => {
         </div>
 
         {/* Tab navigation */}
-        <div className="rounded-md bg-gray-300 px-4 py-4 shadow-md dark:bg-[#191919]">
+        <div className="rounded-md bg-white px-4 py-4 shadow-md dark:bg-[#191919]">
           <div className="flex flex-row gap-4 border-b border-[ #4C4C4C]">
             <button
               className={`px-4 py-4 flex items-center gap-2 font-semibold  ${
-                activeTab === "list-wallets" ? "active-rpc text-white" : "text-black-2 dark:text-white"
+                activeTab === "list-wallets" ? "active-rpc text-black-2 dark:text-white" : "text-black-2 dark:text-white"
               }`}
               onClick={() => setActiveTab("list-wallets")}
             >
@@ -85,7 +85,7 @@ const CreateWorkerWallet = () => {
 
             <button
               className={`px-4 py-4 flex items-center gap-2 font-semibold  ${
-                activeTab === "set-wallet" ? "active-rpc text-white" : "text-black-2 dark:text-white"
+                activeTab === "set-wallet" ? "active-rpc text-black-2 dark:text-white" : "text-black-2 dark:text-white"
               }`}
               onClick={() => setActiveTab("set-wallet")}
             >

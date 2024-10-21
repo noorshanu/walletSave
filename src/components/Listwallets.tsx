@@ -145,7 +145,7 @@ const ListWallets = () => {
           {/* Pagination Controls */}
           <div className="mt-4 flex justify-between">
             <button
-              className="btn-rest rounded px-4 py-2 text-white"
+              className="btn-rest rounded px-4 py-2  text-black-2 dark:text-white"
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
             >
@@ -155,7 +155,7 @@ const ListWallets = () => {
               Page {currentPage} of {totalPages}
             </div>
             <button
-              className="btn-rest rounded px-4 py-2 text-white"
+              className="btn-rest rounded px-4 py-2 text-black-2 dark:text-white"
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
             >
