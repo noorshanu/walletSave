@@ -127,7 +127,7 @@ const TokenList = () => {
 
   return (
     <DefaultLayout>
-      <div className="container mx-auto h-full p-4">
+      <div className="container mx-auto h-full sm:h-[100vh] px-4 pt-4 pb-8 sm:pb-[12%]">
         {/* Header */}
         <h2 className="mb-6 flex items-center gap-2 text-2xl font-bold dark:text-white text-black-2">
           {" "}

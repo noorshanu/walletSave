@@ -41,7 +41,7 @@ const CoinMarquee: React.FC = () => {
   }, []);
 
   return (
-    <div>
+    <div className=' overflow-hidden max-w-screen-lg'>
       {/* Use the widget reference to ensure it's only initialized once */}
       <gecko-coin-price-marquee-widget
         ref={widgetRef}

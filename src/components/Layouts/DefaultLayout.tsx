@@ -2,6 +2,7 @@
 import React, { useState, ReactNode } from "react";
 import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
+import { Footer } from "../Footer";
 
 export default function DefaultLayout({
   children,
@@ -28,6 +29,7 @@ export default function DefaultLayout({
             <div className="mx-auto max-w-screen-2xl p-2 md:p-6 2xl:p-6">
               {children}
             </div>
+            <Footer/>
           </main>
           {/* <!-- ===== Main Content End ===== --> */}
         </div>

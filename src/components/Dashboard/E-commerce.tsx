@@ -14,7 +14,7 @@ const ECommerce: React.FC = () => {
   return (
     <>
       <div className="flex items-center flex-col flex-grow pt-0 re">
-        <div className=" w-full overflow-hidden mb-4">
+        <div className="  overflow-hidden mb-4">
           <CoinMarquee/>
 
         </div>

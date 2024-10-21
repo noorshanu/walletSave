@@ -333,13 +333,13 @@ const SaveUrls: React.FC = () => {
 
   return (
     <DefaultLayout>
-      <div className="w-full p-4 h-full">
+      <div className="w-full p-4 h-full sm:h-full">
         <AddRpcUrl onSave={handleListRpcUrls} />
       <div className="bg-white shadow-md  dark:bg-[#191919] rounded-md  py-4 px-4 ">
       <div className="flex gap-4 mb-6  border-b border-gray-400">
       {/* List RPC URLs Tab */}
       <button
-        className={`px-4 py-4 flex items-center gap-2 font-semibold  ${activeTab === "list" ? "active-rpc text-white" : " text-black-2 dark:text-white "}`}
+        className={`px-4 py-4 flex items-center gap-2 font-semibold  ${activeTab === "list" ? "active-rpc text-black-2 dark:text-white" : " text-black-2 dark:text-white "}`}
         onClick={() => setActiveTab("list")}
       >
         <CiCircleList className="text-xl" /> List RPC URLs
@@ -347,7 +347,7 @@ const SaveUrls: React.FC = () => {
 
       {/* Edit RPC URLs Tab */}
       <button
-        className={`px-4 py-2 flex items-center gap-2 font-semibold  ${activeTab === "edit" ? "active-rpc text-white" : " text-black-2 dark:text-white"}`}
+        className={`px-4 py-2 flex items-center gap-2 font-semibold  ${activeTab === "edit" ? "active-rpc text-black-2 dark:text-white" : " text-black-2 dark:text-white"}`}
         onClick={() => setActiveTab("edit")}
       >
         <FaRegEdit className="text-xl" /> Edit RPC URLs
@@ -355,7 +355,7 @@ const SaveUrls: React.FC = () => {
 
       {/* Delete RPC URLs Tab */}
       <button
-        className={`px-4 py-2 flex items-center gap-2 font-semibold  ${activeTab === "delete" ? "active-rpc text-white" : " text-black-2 dark:text-white"}`}
+        className={`px-4 py-2 flex items-center gap-2 font-semibold  ${activeTab === "delete" ? "active-rpc text-black-2 dark:text-white" : " text-black-2 dark:text-white"}`}
         onClick={() => setActiveTab("delete")}
       >
         <MdDelete className="text-xl" /> Delete RPC URLs

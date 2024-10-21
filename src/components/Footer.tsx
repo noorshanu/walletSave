@@ -10,7 +10,7 @@ export const Footer = () => {
 
 
   return (
-    <div className="min-h-0 py-5 px-1 mb-11 lg:mb-0 bg-white dark:bg-[#0d0d0d]">
+    <div className="min-h-0 py-5 px-1 mb-11 lg:mb-0 bg-white dark:bg-[#242424]">
       
       <div className="w-full">
         <ul className="menu menu-horizontal w-full">
