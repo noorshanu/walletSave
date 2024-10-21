@@ -1,3 +1,4 @@
+"use client"
 import React, { useEffect, useRef } from 'react';
 
 // Extend JSX to recognize the custom CoinGecko widget tag
