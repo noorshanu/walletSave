@@ -171,7 +171,7 @@ const RpcTable: React.FC<{
         <Loader />
       ) : (
         <div className="w-[340px] sm:w-full overflow-x-auto  ">
-        <table className=" border border-[#434C59] w-[200px] bg-white shadow-md dark:bg-[#191919]">
+        <table className=" border border-[#434C59] w-full  bg-white shadow-md dark:bg-[#191919]">
           <thead className="border-[#434C59]">
             <tr className="border border-[#434C59] bg-gray-100 shadow-md dark:bg-[#191919]">
               <th className="border border-[#434C59] p-4 text-left">No</th>
@@ -356,7 +356,7 @@ const SaveUrls: React.FC = () => {
 
   return (
     <DefaultLayout>
-      <div className="h-full w-full p-4 sm:h-full">
+      <div className="h-full w-full  sm:h-full mx-auto px-4 pt-4 pb-[38%] sm:pb-[17%] ">
         <AddRpcUrl onSave={handleListRpcUrls} />
         <div className="rounded-md bg-white  px-4 py-4  shadow-md dark:bg-[#191919] ">
           <div className="mb-6 flex gap-4 flex-col sm:flex-row  border-b border-gray-400">

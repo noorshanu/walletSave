@@ -6,7 +6,7 @@ const Page = () => {
   return (
     <>
     <DefaultLayout>
-    <div className="s mx-auto p-4">
+    <div className=" mx-auto px-4 pt-4 pb-[38%] sm:pb-[17%] h-full ">
       <CreateWorkerWallet />
     </div>
     </DefaultLayout>
