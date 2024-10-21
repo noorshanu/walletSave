@@ -36,12 +36,12 @@ const GasFeeUI = () => {
   return (
     <div className="flex justify-between gap-4 w-full flex-col sm:flex-row">
       {/* Gas Fee Section */}
-      <div className="bg-[#191919] p-6 rounded-lg shadow-md w-full sm:w-1/2 ">
+      <div className="dark:bg-[#191919] bg-white p-6 rounded-lg shadow-md w-full sm:w-1/2 ">
         <div className="relative mb-4">
           <select
             value={selectedChain}
             onChange={(e) => setSelectedChain(e.target.value as Chain)} // Cast value to the correct type
-            className="block w-full p-3 border bg-[#191919] border-[#434C59] text-white rounded-md"
+            className="block w-full p-3 border dark:bg-[#191919] bg-white border-[#434C59] dark:text-white text-black-2 rounded-md"
           >
             {chains.map((chain) => (
               <option key={chain.symbol} value={chain.symbol}>
@@ -51,21 +51,21 @@ const GasFeeUI = () => {
           </select>
         </div>
 
-        <div className="flex justify-around items-center mt-4 p-4 bg-[#191919] rounded-lg">
+        <div className="flex justify-around items-center mt-4 p-4 dark:bg-[#191919] bg-white rounded-lg">
           <div className="text-center">
             <img src="/rock.png" alt="" className=' mx-auto' />
-            <p className="text-white font-normal">Fast</p>
-            <p className="text-white font-bold">{fees.fast} Gwei</p>
+            <p className="dark:text-white text-black-2 font-normal">Fast</p>
+            <p className="dark:text-white text-black-2 font-bold">{fees.fast} Gwei</p>
           </div>
           <div className="text-center">
             <img src="/car.png" alt="" className=' mx-auto' />
-            <p className="text-white font-normal">Normal</p>
-            <p className="text-white font-bold">{fees.normal} Gwei</p>
+            <p className="dark:text-white text-black-2 font-normal">Normal</p>
+            <p className="dark:text-white text-black-2 font-bold">{fees.normal} Gwei</p>
           </div>
           <div className="text-center">
           <img src="/tor.png" alt="" className=' mx-auto' />
-            <p className="text-white font-normal">Slow</p>
-            <p className="text-white font-bold">{fees.slow} Gwei</p>
+            <p className="dark:text-white text-black-2e font-normal">Slow</p>
+            <p className="dark:text-white text-black-2 font-bold">{fees.slow} Gwei</p>
           </div>
         </div>
 
@@ -73,9 +73,9 @@ const GasFeeUI = () => {
       </div>
 
       {/* Crypto Fear & Greed Index */}
-      <div className="bg-[#191919] p-6 rounded-lg shadow-md w-full sm:w-1/2   ">
+      <div className="dark:bg-[#191919] bg-white p-6 rounded-lg shadow-md w-full sm:w-1/2   ">
         <div className="">
-          <p className="text-white font-bold mb-2 flex items-center gap-3">Crypto Fear & Greed Index <FaCircleQuestion /></p>
+          <p className="dark:text-white text-black-2 font-bold mb-2 flex items-center gap-3">Crypto Fear & Greed Index <FaCircleQuestion /></p>
       
 
           <div className=' flex justify-center items-center'>
