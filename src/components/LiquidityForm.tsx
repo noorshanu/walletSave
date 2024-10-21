@@ -7,7 +7,7 @@ const LiquidityForm = () => {
         Add liquidity
       </h2>
       <div>
-        <div className="my-6 flex space-x-4">
+        <div className="my-6 flex flex-col sm:flex-row gap-4">
           {/* Base Token Input */}
           <div className="w-full">
             <label
@@ -48,7 +48,7 @@ const LiquidityForm = () => {
         </div>
       </div>
 
-      <div className="flex space-x-4">
+      <div className="flex flex-col sm:flex-row">
         {/* Base Section */}
         <div className="flex w-full flex-col items-start  justify-start  rounded-lg">
           <div className="flex w-full  ">

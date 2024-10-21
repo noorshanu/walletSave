@@ -36,7 +36,7 @@ function CoinGreed() {
 
   return (
     <>
-      <div className="wrappers ">
+      <div className=" ">
         <div className="rang">
           <div className="rang-title">
             <input

@@ -10,7 +10,7 @@ const TokenBundleUI = () => {
       <div className="mx-auto w-full px-4  rounded-md bg-white py-8 shadow-lg dark:bg-[#191919]">
         {/* Header Section */}
         <div className=" border-b  border-[#434C59]">
-          <div className="mb-6 flex items-center justify-between px-8 py-4">
+          <div className="mb-6 flex items-start sm:items-center flex-col-reverse sm:flex-row gap-4 justify-start sm:justify-between px-8 py-4">
             <h1 className="text-2xl font-bold text-black-2 dark:text-white">
               Token: CyZq3sULrbByuDc...
             </h1>
@@ -44,7 +44,7 @@ const TokenBundleUI = () => {
 
         {/* Wallet Info Section */}
         <div className="mt-6  rounded-md p-6 shadow">
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid gird-cols-1 sm:grid-cols-2 gap-6">
             <div>
               <h3 className="mb-2 text-lg font-semibold">Funding Wallet</h3>
               <p className="break-all">

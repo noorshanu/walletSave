@@ -36,7 +36,7 @@ const WalletBuyParameters = () => {
         </button>
       </div>
 
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto w-[350px] sm:w-full">
         <table className="w-full table-auto border-collapse border border-gray-300">
           <thead className="">
             <tr className="text-left">
