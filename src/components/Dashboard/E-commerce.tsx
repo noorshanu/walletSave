@@ -6,19 +6,14 @@ import BlockchainGrid from "../BlockchainGrid";
 import GasFeeUI from "../GasFeeTracker";
 import HeroHeader from "../HeroHeader";
 import ToolsGrid from "../ToolsGrid";
-import CoinMarquee from "../CoinMarquee";
-
-
+// import CoinMarquee from "../CoinMarquee";
 
 const ECommerce: React.FC = () => {
   return (
     <>
-      <div className="flex items-center flex-col flex-grow pt-0 re">
-        <div className="  overflow-hidden mb-4">
-          {/* <CoinMarquee/> */}
-
-        </div>
-      <div>
+      <div className="re flex flex-grow flex-col items-center pt-0">
+        <div className="  mb-4 overflow-hidden">{/* <CoinMarquee/> */}</div>
+        <div>
           <HeroHeader />
         </div>
 
@@ -27,17 +22,6 @@ const ECommerce: React.FC = () => {
         <ToolsGrid />
         <GasFeeUI />
       </div>
-
-      {/* <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
-        <ChartOne />
-        <ChartTwo />
-        <ChartThree />
-        <MapOne />
-        <div className="col-span-12 xl:col-span-8">
-          <TableOne />
-        </div>
-        <ChatCard />
-      </div> */}
     </>
   );
 };

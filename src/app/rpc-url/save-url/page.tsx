@@ -1,16 +1,22 @@
 "use client";
 
 import React, { useCallback, useEffect, useState } from "react";
-import { deleteRpcUrl, listRpcUrls, registerWallet, saveRpcUrl, updateRpcUrl } from "../../../utils/api";
+import {
+  deleteRpcUrl,
+  listRpcUrls,
+  registerWallet,
+  saveRpcUrl,
+  updateRpcUrl,
+} from "../../../utils/api";
 import { useAccount } from "wagmi";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import RpcToast from "@/components/RpcToast";
 import { PiLinkSimpleDuotone } from "react-icons/pi";
 import { FaSyncAlt, FaCopy } from "react-icons/fa";
-import { CiCircleList } from "react-icons/ci";  // List icon
-import { FaRegEdit } from "react-icons/fa";    // Edit icon
-import { MdDelete } from "react-icons/md";     // Delete icon
+import { CiCircleList } from "react-icons/ci"; // List icon
+import { FaRegEdit } from "react-icons/fa"; // Edit icon
+import { MdDelete } from "react-icons/md"; // Delete icon
 import dynamic from "next/dynamic";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 
@@ -22,9 +28,12 @@ const AddRpcUrl: React.FC<{ onSave: () => void }> = ({ onSave }) => {
   const { address } = useAccount();
   const [rpcUrl, setRpcUrl] = useState<string>("");
   const [rpcName, setRpcName] = useState<string>("");
- 
+
   const handleSaveRpcUrl = useCallback(async () => {
-    if (!rpcUrl || !rpcName) { RpcToast("Please provide both name and URL.", "warn"); return }
+    if (!rpcUrl || !rpcName) {
+      RpcToast("Please provide both name and URL.", "warn");
+      return;
+    }
 
     try {
       await saveRpcUrl(address as string, rpcUrl, rpcName);
@@ -39,16 +48,18 @@ const AddRpcUrl: React.FC<{ onSave: () => void }> = ({ onSave }) => {
   }, [rpcUrl, rpcName, address, onSave]);
 
   return (
-    <div className="bg-white shadow-md dark:bg-[#191919] px-4 py-6 rounded-md mb-6">
-      <h1 className="text-2xl flex items-center gap-2 font-bold dark:text-white text-black-2">
+    <div className="mb-6 rounded-md bg-white px-4 py-6 shadow-md dark:bg-[#191919]">
+      <h1 className="flex items-center gap-2 text-2xl font-bold text-black-2 dark:text-white">
         <PiLinkSimpleDuotone /> ADD RPC URL
       </h1>
-      <div className="flex items-center gap-4 my-4">
+      <div className="my-4 flex items-center flex-col sm:flex-row gap-4">
         <div className="w-full sm:w-1/2">
-          <label className="dark:text-white text-black font-medium">RPC Name</label>
+          <label className="font-medium text-black dark:text-white">
+            RPC Name
+          </label>
           <input
             type="text"
-            className="w-full p-2 border border-gray-300 rounded-md dark:bg-[#191919]"
+            className="w-full rounded-md border border-gray-300 p-2 dark:bg-[#191919]"
             placeholder="Ex: eth, bsc"
             value={rpcName}
             onChange={(e) => setRpcName(e.target.value)}
@@ -58,7 +69,7 @@ const AddRpcUrl: React.FC<{ onSave: () => void }> = ({ onSave }) => {
           <label className="dark:text-white">RPC Url</label>
           <input
             type="text"
-            className="w-full p-2 border border-gray-300 rounded-md dark:bg-[#191919]"
+            className="w-full rounded-md border border-gray-300 p-2 dark:bg-[#191919]"
             placeholder="https://eth.llamarpc.com"
             value={rpcUrl}
             onChange={(e) => setRpcUrl(e.target.value)}
@@ -66,7 +77,7 @@ const AddRpcUrl: React.FC<{ onSave: () => void }> = ({ onSave }) => {
         </div>
       </div>
       <button
-        className="bg-primary-gradient text-white py-2 px-4 rounded-md w-full font-semibold"
+        className="bg-primary-gradient w-full rounded-md px-4 py-2 font-semibold text-white"
         onClick={handleSaveRpcUrl}
       >
         SAVE RPC
@@ -84,7 +95,15 @@ const RpcTable: React.FC<{
   isEditMode: boolean;
   loading: boolean;
   onRefresh: () => void;
-}> = ({ rpcList, onEdit, onDelete, onUpdate, isEditMode, loading, onRefresh }) => {
+}> = ({
+  rpcList,
+  onEdit,
+  onDelete,
+  onUpdate,
+  isEditMode,
+  loading,
+  onRefresh,
+}) => {
   const [editMode, setEditMode] = useState<string | null>(null);
   const [editName, setEditName] = useState<string>("");
   const [editUrl, setEditUrl] = useState<string>("");
@@ -95,7 +114,10 @@ const RpcTable: React.FC<{
   const totalPages = Math.ceil(rpcList.length / itemsPerPage);
 
   // Paginate the rpcList
-  const paginatedData = rpcList.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+  const paginatedData = rpcList.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage,
+  );
 
   const handleNextPage = () => {
     if (currentPage < totalPages) setCurrentPage((prev) => prev + 1);
@@ -107,94 +129,92 @@ const RpcTable: React.FC<{
 
   return (
     <div className="mt-4">
-     
-      <div className="flex items-center justify-between mb-4 p-2 bg-white dark:bg-[#191919] rounded-lg shadow-md">
-      {/* Dropdown for Chain Selection */}
-      <div className="relative flex items-center w-full sm:w-1/2">
-        <select className="appearance-none block w-full px-4 py-2 pr-8 bg-white dark:bg-[#191919] text-black-2 dark:text-white border border-gray-600 rounded-md focus:outline-none focus:ring focus:border-blue-300">
-          <option value="ETH">ETH</option>
-          <option value="BTC">BTC</option>
-          <option value="BSC">BSC</option>
-          <option value="Polygon">Polygon</option>
-        </select>
-        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-600">
-          <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-            <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-          </svg>
+      <div className="mb-4 flex items-center justify-between flex-col sm:flex-row gap-4 rounded-lg bg-white p-2 shadow-md dark:bg-[#191919]">
+        {/* Dropdown for Chain Selection */}
+        <div className="relative flex w-full items-center  sm:w-1/2">
+          <select className="block w-full appearance-none rounded-md border border-gray-600 bg-white px-4 py-2 pr-8 text-black-2 focus:border-blue-300 focus:outline-none focus:ring dark:bg-[#191919] dark:text-white">
+            <option value="ETH">ETH</option>
+            <option value="BTC">BTC</option>
+            <option value="BSC">BSC</option>
+            <option value="Polygon">Polygon</option>
+          </select>
+          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-600">
+            <svg
+              className="h-4 w-4 fill-current"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+            >
+              <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+            </svg>
+          </div>
         </div>
-      </div>
 
-      {/* Buttons */}
-      <div className="flex gap-2">
-        {/* Reload Button */}
-        <button
-          className="flex items-center gap-2 px-4 py-2 btn-rest text-white  rounded-md  font-semibold hover:bg-purple-700"
-          onClick={onRefresh}
-        >
-          <FaSyncAlt />
-          Reload
-        </button>
+        {/* Buttons */}
+        <div className="flex gap-2">
+          {/* Reload Button */}
+          <button
+            className="btn-rest flex items-center gap-2 rounded-md px-4 py-2  font-semibold  text-white hover:bg-purple-700"
+            onClick={onRefresh}
+          >
+            <FaSyncAlt />
+            Reload
+          </button>
 
-        {/* Copy Button */}
-        <button
-          className="flex items-center gap-2 btn-rest text-white px-4 py-1 rounded-md  font-semibold hover:bg-purple-700"
-        
-        >
-          <FaCopy />
-          Copy
-        </button>
-
-    </div>
-      
-     
+          {/* Copy Button */}
+          <button className="btn-rest flex items-center gap-2 rounded-md px-4 py-1 font-semibold  text-white hover:bg-purple-700">
+            <FaCopy />
+            Copy
+          </button>
+        </div>
       </div>
       {loading ? (
         <Loader />
       ) : (
-        <table className="min-w-full bg-white shadow-md  dark:bg-[#191919]  overflow-hidden border  border-[#434C59]">
-          <thead className="  border-[#434C59]">
-            <tr className="bg-gray-100 shadow-md  dark:bg-[#191919] border-[#434C59] border">
-              <th className="text-left p-4 border border-[#434C59]">No</th>
-              <th className="text-left p-4 border border-[#434C59]">RPC URLs</th>
-              <th className="text-left p-4 border border-[#434C59]">RPC Names</th>
-              <th className="text-left p-4 border border-[#434C59]">Response Time</th>
-              <th className="text-left p-4 border border-[#434C59]">Action</th>
+        <div className="w-[340px] sm:w-full overflow-x-auto  ">
+        <table className=" border border-[#434C59] w-[200px] bg-white shadow-md dark:bg-[#191919]">
+          <thead className="border-[#434C59]">
+            <tr className="border border-[#434C59] bg-gray-100 shadow-md dark:bg-[#191919]">
+              <th className="border border-[#434C59] p-4 text-left">No</th>
+              <th className="border border-[#434C59] p-4 text-left">RPC URLs</th>
+              <th className="border border-[#434C59] p-4 text-left">RPC Names</th>
+              <th className="border border-[#434C59] p-4 text-left">Response Time</th>
+              <th className="border border-[#434C59] p-4 text-left">Action</th>
             </tr>
           </thead>
           <tbody>
             {paginatedData.length > 0 ? (
               paginatedData.map((item, index) => (
-                <tr key={index} className=" ">
-                  <td className="p-4  border border-[#434C59]">{(currentPage - 1) * itemsPerPage + index + 1}</td>
-                  <td className="p-4 border border-[#434C59]">
+                <tr key={index}>
+                  <td className="border border-[#434C59] p-4">
+                    {(currentPage - 1) * itemsPerPage + index + 1}
+                  </td>
+                  <td className="border border-[#434C59] p-4">
                     {editMode === item.name ? (
                       <input
                         value={editUrl}
                         onChange={(e) => setEditUrl(e.target.value)}
-                        className="w-full bg-gray-100 dark:bg-[#191919] dark:text-white text-black-2 border border-gray-600 rounded-md p-3"
+                        className="w-full rounded-md border border-gray-600 bg-gray-100 p-3 text-black-2 dark:bg-[#191919] dark:text-white"
                       />
                     ) : (
                       item.rpcUrl
                     )}
                   </td>
-                  <td className="p-4 border border-[#434C59]">
+                  <td className="border border-[#434C59] p-4">
                     {editMode === item.name ? (
                       <input
                         value={editName}
                         onChange={(e) => setEditName(e.target.value)}
-                        className="w-full bg-gray-100 dark:bg-[#191919] dark:text-white text-black-2 border border-gray-600 rounded-md p-3"
+                        className="w-full rounded-md border border-gray-600 bg-gray-100 p-3 text-black-2 dark:bg-[#191919] dark:text-white"
                       />
                     ) : (
                       item.name
                     )}
                   </td>
-                  <td className="p-4 border border-[#434C59]">
-                   341 ms
-                  </td>
-                  <td className="p-4 border border-[#434C59]">
+                  <td className="border border-[#434C59] p-4">341 ms</td>
+                  <td className="border border-[#434C59] p-4">
                     {editMode === item.name ? (
                       <button
-                        className="btn-rest text-white px-4 py-1 rounded-md b hover:bg-gray-600 w-full sm:w-1/2 font-semibold"
+                        className="btn-rest w-full rounded-md px-4 py-1 font-semibold text-white hover:bg-gray-600 sm:w-1/2"
                         onClick={() => {
                           onUpdate(editName, editUrl);
                           setEditMode(null);
@@ -205,7 +225,7 @@ const RpcTable: React.FC<{
                     ) : (
                       <>
                         <button
-                          className="bg-primary-gradient text-white px-4 py-1 rounded-md font-semibold  mr-2"
+                          className="bg-primary-gradient mr-2 rounded-md px-4 py-1 font-semibold text-white"
                           onClick={() => {
                             setEditMode(item.name);
                             setEditName(item.name);
@@ -215,7 +235,7 @@ const RpcTable: React.FC<{
                           Edit
                         </button>
                         <button
-                          className="btn-rest text-white px-4 py-1 rounded-md b hover:bg-gray-600 w-full sm:w-1/2 font-semibold"
+                          className="btn-rest b w-full rounded-md px-4 py-1 font-semibold text-white hover:bg-gray-600 sm:w-1/2"
                           onClick={() => onDelete(item.name)}
                         >
                           Delete
@@ -234,13 +254,14 @@ const RpcTable: React.FC<{
             )}
           </tbody>
         </table>
+      </div>
       )}
 
       {/* Pagination Controls */}
       {rpcList.length > itemsPerPage && (
-        <div className="flex justify-center items-center mt-4 space-x-2">
+        <div className="mt-4 flex items-center justify-center space-x-2">
           <button
-            className={`px-4 py-2 rounded-md ${currentPage === 1 ? "bg-gray-400" : "bg-primary-gradient text-white"}`}
+            className={`rounded-md px-4 py-2 ${currentPage === 1 ? "bg-gray-400" : "bg-primary-gradient text-white"}`}
             onClick={handlePreviousPage}
             disabled={currentPage === 1}
           >
@@ -250,7 +271,7 @@ const RpcTable: React.FC<{
             Page {currentPage} of {totalPages}
           </span>
           <button
-            className={`px-4 py-2 rounded-md ${currentPage === totalPages ? "bg-gray-400" : "bg-primary-gradient text-white"}`}
+            className={`rounded-md px-4 py-2 ${currentPage === totalPages ? "bg-gray-400" : "bg-primary-gradient text-white"}`}
             onClick={handleNextPage}
             disabled={currentPage === totalPages}
           >
@@ -265,7 +286,9 @@ const RpcTable: React.FC<{
 // Main Component
 const SaveUrls: React.FC = () => {
   const { address, isConnected } = useAccount();
-  const [rpcList, setRpcList] = useState<{ name: string; rpcUrl: string }[]>([]);
+  const [rpcList, setRpcList] = useState<{ name: string; rpcUrl: string }[]>(
+    [],
+  );
   const [loading, setLoading] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<string>("list");
 
@@ -295,17 +318,17 @@ const SaveUrls: React.FC = () => {
         setLoading(true);
         await deleteRpcUrl(address as string, name);
         RpcToast("RPC URL deleted successfully!", "success");
-      
+
         handleListRpcUrls();
       } catch (error) {
         console.error("Failed to delete RPC URL", error);
-       
+
         RpcToast("Failed to delete RPC URL.", "error");
       } finally {
         setLoading(false);
       }
     },
-    [address, handleListRpcUrls]
+    [address, handleListRpcUrls],
   );
 
   const handleUpdateRpcUrl = useCallback(
@@ -313,18 +336,18 @@ const SaveUrls: React.FC = () => {
       try {
         setLoading(true);
         await updateRpcUrl(address as string, name, name, rpcUrl);
-   
+
         RpcToast("RPC URL upadted successfully!", "success");
         handleListRpcUrls();
       } catch (error) {
         console.error("Failed to update RPC URL", error);
-    
+
         RpcToast("Failded To Update RPC URL!", "error");
       } finally {
         setLoading(false);
       }
     },
-    [address, handleListRpcUrls]
+    [address, handleListRpcUrls],
   );
 
   useEffect(() => {
@@ -333,45 +356,45 @@ const SaveUrls: React.FC = () => {
 
   return (
     <DefaultLayout>
-      <div className="w-full p-4 h-full sm:h-full">
+      <div className="h-full w-full p-4 sm:h-full">
         <AddRpcUrl onSave={handleListRpcUrls} />
-      <div className="bg-white shadow-md  dark:bg-[#191919] rounded-md  py-4 px-4 ">
-      <div className="flex gap-4 mb-6  border-b border-gray-400">
-      {/* List RPC URLs Tab */}
-      <button
-        className={`px-4 py-4 flex items-center gap-2 font-semibold  ${activeTab === "list" ? "active-rpc text-black-2 dark:text-white" : " text-black-2 dark:text-white "}`}
-        onClick={() => setActiveTab("list")}
-      >
-        <CiCircleList className="text-xl" /> List RPC URLs
-      </button>
+        <div className="rounded-md bg-white  px-4 py-4  shadow-md dark:bg-[#191919] ">
+          <div className="mb-6 flex gap-4 flex-col sm:flex-row  border-b border-gray-400">
+            {/* List RPC URLs Tab */}
+            <button
+              className={`flex items-center gap-2 px-4 py-4 font-semibold  ${activeTab === "list" ? "active-rpc text-black-2 dark:text-white" : " text-black-2 dark:text-white "}`}
+              onClick={() => setActiveTab("list")}
+            >
+              <CiCircleList className="text-xl" /> List RPC URLs
+            </button>
 
-      {/* Edit RPC URLs Tab */}
-      <button
-        className={`px-4 py-2 flex items-center gap-2 font-semibold  ${activeTab === "edit" ? "active-rpc text-black-2 dark:text-white" : " text-black-2 dark:text-white"}`}
-        onClick={() => setActiveTab("edit")}
-      >
-        <FaRegEdit className="text-xl" /> Edit RPC URLs
-      </button>
+            {/* Edit RPC URLs Tab */}
+            <button
+              className={`flex items-center gap-2 px-4 py-2 font-semibold  ${activeTab === "edit" ? "active-rpc text-black-2 dark:text-white" : " text-black-2 dark:text-white"}`}
+              onClick={() => setActiveTab("edit")}
+            >
+              <FaRegEdit className="text-xl" /> Edit RPC URLs
+            </button>
 
-      {/* Delete RPC URLs Tab */}
-      <button
-        className={`px-4 py-2 flex items-center gap-2 font-semibold  ${activeTab === "delete" ? "active-rpc text-black-2 dark:text-white" : " text-black-2 dark:text-white"}`}
-        onClick={() => setActiveTab("delete")}
-      >
-        <MdDelete className="text-xl" /> Delete RPC URLs
-      </button>
-    </div>
+            {/* Delete RPC URLs Tab */}
+            <button
+              className={`flex items-center gap-2 px-4 py-2 font-semibold  ${activeTab === "delete" ? "active-rpc text-black-2 dark:text-white" : " text-black-2 dark:text-white"}`}
+              onClick={() => setActiveTab("delete")}
+            >
+              <MdDelete className="text-xl" /> Delete RPC URLs
+            </button>
+          </div>
 
-        <RpcTable
-          rpcList={rpcList}
-          onEdit={(name, rpcUrl) => handleUpdateRpcUrl(name, rpcUrl)}
-          onDelete={(name) => handleDeleteRpcUrl(name)}
-          onUpdate={handleUpdateRpcUrl}
-          isEditMode={activeTab === "edit"}
-          loading={loading}
-          onRefresh={handleListRpcUrls}
-        />
-      </div>
+          <RpcTable
+            rpcList={rpcList}
+            onEdit={(name, rpcUrl) => handleUpdateRpcUrl(name, rpcUrl)}
+            onDelete={(name) => handleDeleteRpcUrl(name)}
+            onUpdate={handleUpdateRpcUrl}
+            isEditMode={activeTab === "edit"}
+            loading={loading}
+            onRefresh={handleListRpcUrls}
+          />
+        </div>
       </div>
       <ToastContainer />
     </DefaultLayout>
