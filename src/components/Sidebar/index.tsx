@@ -131,7 +131,7 @@ const menuGroups = [
       {
         icon: <FiLock />,
         label: "Token Locks List",
-        route: "#",
+        route: "/token-lock-list",
       },
 
       {
