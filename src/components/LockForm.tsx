@@ -36,16 +36,16 @@ const LockForm = () => {
       </div>
 
       {/* PinkLock is Audited By Section */}
-      <div className="border  border-green-600 p-4 mb-6 rounded-lg">
+      {/* <div className="border  border-green-600 p-4 mb-6 rounded-lg">
         <h4 className="font-semibold dark:text-white text-black-2 mb-4">PinkLock Is Audited By</h4>
         <div className="flex gap-4 space-x-2">
-          {/* Certik logos */}
+   
           <img src="/certik.svg" alt="Certik" className="h-6 w-auto border border-gray-600  dark:bg-transparent bg-[#191919] rounded-md py-1 px-4" />
           <img src="/certik.svg" alt="Certik" className="h-6 w-auto border border-gray-600 rounded-md py-1 px-4 dark:bg-transparent bg-[#191919]" />
           <img src="/certik.svg" alt="Certik" className="h-6 w-auto border border-gray-600 rounded-md py-1 px-4 dark:bg-transparent bg-[#191919]" />
-          {/* Add more logos if needed */}
+       
         </div>
-      </div>
+      </div> */}
 
       {/* Form Fields */}
       <form className="space-y-6">
