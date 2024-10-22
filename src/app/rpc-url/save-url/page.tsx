@@ -174,21 +174,21 @@ const RpcTable: React.FC<{
         <table className=" border border-[#434C59] w-full  bg-white shadow-md dark:bg-[#191919]">
           <thead className="border-[#434C59]">
             <tr className="border border-[#434C59] bg-gray-100 shadow-md dark:bg-[#191919]">
-              <th className="border border-[#434C59] p-4 text-left">No</th>
-              <th className="border border-[#434C59] p-4 text-left">RPC URLs</th>
-              <th className="border border-[#434C59] p-4 text-left">RPC Names</th>
-              <th className="border border-[#434C59] p-4 text-left">Response Time</th>
-              <th className="border border-[#434C59] p-4 text-left">Action</th>
+              <th className="border border-[#434C59] p-4 text-left dark:text-white text-black-2">No</th>
+              <th className="border border-[#434C59] p-4 text-left dark:text-white text-black-2">RPC URLs</th>
+              <th className="border border-[#434C59] p-4 text-left dark:text-white text-black-2">RPC Names</th>
+              <th className="border border-[#434C59] p-4 text-left dark:text-white text-black-2">Response Time</th>
+              <th className="border border-[#434C59] p-4 text-left dark:text-white text-black-2">Action</th>
             </tr>
           </thead>
           <tbody>
             {paginatedData.length > 0 ? (
               paginatedData.map((item, index) => (
                 <tr key={index}>
-                  <td className="border border-[#434C59] p-4">
+                  <td className="border border-[#434C59] dark:text-white text-black-2 p-4">
                     {(currentPage - 1) * itemsPerPage + index + 1}
                   </td>
-                  <td className="border border-[#434C59] p-4">
+                  <td className="border border-[#434C59] p-4 dark:text-white text-black-2">
                     {editMode === item.name ? (
                       <input
                         value={editUrl}
@@ -199,7 +199,7 @@ const RpcTable: React.FC<{
                       item.rpcUrl
                     )}
                   </td>
-                  <td className="border border-[#434C59] p-4">
+                  <td className="border border-[#434C59] p-4 dark:text-white text-black-2">
                     {editMode === item.name ? (
                       <input
                         value={editName}
