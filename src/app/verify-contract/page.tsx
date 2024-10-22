@@ -6,7 +6,7 @@ function page() {
   return (
    <>
    <DefaultLayout>
-    <div>
+    <div className=' pb-[25%] sm:pd-[20%]'>
         <AirDropForm/>
     </div>
    </DefaultLayout>
