@@ -33,8 +33,8 @@ const AirDropForm = () => {
   return (
     <div className="w-full mx-auto p-4 bg-white dark:bg-[#191919] rounded-lg shadow-md">
       {/* Token Address and Quantity Section */}
-      <div className="flex gap-4  mb-6 items-center">
-        <div className="w-1/2">
+      <div className="flex flex-col sm:flex-row gap-4  mb-6 items-center">
+        <div className="w-full sm:w-1/2">
           <label className="block dark:text-white text-black-2 ">Token Address</label>
           <input 
             type="text" 
@@ -42,7 +42,7 @@ const AirDropForm = () => {
             className="w-full bg-gray-100 dark:bg-[#191919] dark:text-white text-black-2 border border-gray-600 rounded-md p-3"
           />
         </div>
-        <div className="w-1/2">
+        <div className=" w-full sm:w-1/2">
           <label className="block dark:text-white text-black-2 ">Quantity per Wallet</label>
           <input 
             type="number" 
@@ -108,7 +108,7 @@ const AirDropForm = () => {
     </div>
     
       </div>
-      <div className=' flex gap-4 items-center my-4 '>
+      <div className=' flex  gap-4 items-center my-4 '>
       <button className="bg-primary-gradient text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-all duration-200">
           Upload CSV
         </button>
@@ -116,10 +116,10 @@ const AirDropForm = () => {
       </div>
 
       {/* Summary Section */}
-      <div className="flex justify-between dark:text-white text-black-2 mb-6">
+      <div className="flex justify-between gap-4 dark:text-white text-black-2 mb-6">
         <span>Sending Tokens: 01</span>
         <span>Total Wallets: {walletAddresses.length}</span>
-        <span>Total Tx Fees: ⚙ 001 ETH</span>
+        <span>Total Tx Fees:  001 ETH</span>
       </div>
 
       {/* Start Airdrop Button */}
