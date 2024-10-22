@@ -137,7 +137,7 @@ const menuGroups = [
       {
         icon: <RiVerifiedBadgeFill />,
         label: "Verify Contract",
-        route: "#",
+        route: "/verify-contract",
       },
     ],
   },
