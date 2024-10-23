@@ -3,6 +3,8 @@ import { listWallets, getBalance } from '../utils/api';
 import { useAccount } from 'wagmi';
 import Popup from './Popup/Popup';
 import GenerateWallets from './Popup/GenerateWallets';
+import BuySetting from './Popup/BuySetting';
+import SellSetting from './Popup/SellSetting ';
 
 
 interface Wallet {
@@ -106,9 +108,19 @@ const SnipeToken = () => {
   };
  
   const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [isPopupVisible2, setIsPopupVisible2] = useState(false);
+  const [isPopupVisible3, setIsPopupVisible3] = useState(false);
+
+
 
   const togglePopup = () => {
     setIsPopupVisible(!isPopupVisible);
+  };
+  const togglePopup2 = () => {
+    setIsPopupVisible2(!isPopupVisible2);
+  };
+  const togglePopup3 = () => {
+    setIsPopupVisible3(!isPopupVisible3);
   };
 
   return (
@@ -164,8 +176,8 @@ const SnipeToken = () => {
           <div className="flex gap-2 mb-4">
             <button className="bg-primary-gradient px-4 py-2 rounded-md text-sm" onClick={togglePopup}  >Generate Wallets</button>
             <button className="bg-primary-gradient px-4 py-2 rounded-md text-sm">Download Wallets</button>
-            <button className="bg-primary-gradient px-4 py-2 rounded-md text-sm">Buy Setting</button>
-            <button className="bg-primary-gradient px-4 py-2 rounded-md text-sm">Sell Setting</button>
+            <button className="bg-primary-gradient px-4 py-2 rounded-md text-sm" onClick={togglePopup2}>Buy Setting</button>
+            <button className="bg-primary-gradient px-4 py-2 rounded-md text-sm" onClick={togglePopup3}>Sell Setting</button>
           </div>
 
           <table className="dark:bg-[#191919] bg-white text-left text-sm p-4 w-full border rounded-md border-gray-300">
@@ -234,6 +246,13 @@ const SnipeToken = () => {
    <Popup visible={isPopupVisible} onClose={togglePopup} >
   <GenerateWallets/>
 </Popup>
+<Popup visible={isPopupVisible2} onClose={togglePopup2} >
+  <BuySetting/>
+</Popup>
+<Popup visible={isPopupVisible3} onClose={togglePopup3} >
+<SellSetting/>
+</Popup>
+
     </div>
   );
 };
