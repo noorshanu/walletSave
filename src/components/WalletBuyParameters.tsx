@@ -30,7 +30,7 @@ const WalletBuyParameters = () => {
   return (
     <div className="">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-lg font-semibold dark:text-white text-black mb-4">Wallet Settings</h2>
+        <h2 className="text-lg font-semibold dark:text-white text-black mb-4">Sinper list</h2>
         <button className="bg-primary-gradient  rounded-md px-4 py-2 font-semibold text-white flex items-center gap-2">
         <IoMdRefreshCircle />   Refresh 
         </button>
@@ -40,12 +40,7 @@ const WalletBuyParameters = () => {
         <table className="w-full table-auto border-collapse border border-gray-300">
           <thead className="">
             <tr className="text-left">
-              <th className="border p-3">
-              <div className="flex items-center justify-between gap-4">
-                    {" "}
-                    Private Key <RiExpandUpDownFill />
-                  </div>
-              </th>
+           
               <th className="border p-3">
               <div className="flex items-center justify-between gap-4">
                     {" "}
@@ -79,16 +74,7 @@ const WalletBuyParameters = () => {
           <tbody>
             {rows.map((row, index) => (
               <tr key={index}>
-                <td className="border p-3">
-                  <input
-                    type="text"
-                    name="privateKey"
-                    placeholder="Enter Private Key"
-                    value={row.privateKey}
-                    onChange={event => handleInputChange(index, event)}
-                    className="w-full p-2 border border-gray-300 rounded bg-transparent"
-                  />
-                </td>
+             
                 <td className="border p-3 text-center">–</td>
                 <td className="border p-3 text-center">–</td>
                 <td className="border p-3 text-center">–</td>

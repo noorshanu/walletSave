@@ -6,7 +6,7 @@ const RpcToast = (message: string, type: "success" | "error" | "info" | "warn") 
   switch (type) {
     case "success":
       toast.success(message, {
-        position: "top-right",
+        position: "bottom-center",
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -54,7 +54,7 @@ const RpcToast = (message: string, type: "success" | "error" | "info" | "warn") 
       break;
     default:
       toast(message, {
-        position: "top-right",
+        position: "bottom-right",
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
