@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { listWallets, getBalance } from '../utils/api';
 import { useAccount } from 'wagmi';
+import Popup from './Popup/Popup';
+import GenerateWallets from './Popup/GenerateWallets';
+import BuySetting from './Popup/BuySetting';
+import SellSetting from './Popup/SellSetting ';
 
 interface Wallet {
   walletAddress: string;
@@ -101,7 +105,21 @@ const SniperToken = () => {
       fetchWallets(newPage);
     }
   };
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [isPopupVisible2, setIsPopupVisible2] = useState(false);
+  const [isPopupVisible3, setIsPopupVisible3] = useState(false);
 
+
+
+  const togglePopup = () => {
+    setIsPopupVisible(!isPopupVisible);
+  };
+  const togglePopup2 = () => {
+    setIsPopupVisible2(!isPopupVisible2);
+  };
+  const togglePopup3 = () => {
+    setIsPopupVisible3(!isPopupVisible3);
+  };
   return (
     <div className="bg-white dark:bg-[#191919] text-white p-4 rounded-lg shadow-lg">
         <div className=" my-4">
@@ -156,17 +174,7 @@ const SniperToken = () => {
         <div className="text-center text-lg">Loading...</div>
       ) : (
         <>
-          {/* <div className="mb-4">
-            <label className="block text-sm font-medium">Token Address</label>
-            <select className="mt-1 block w-full px-3 py-2 dark:bg-[#191919] bg-white border border-gray-700 rounded-md text-sm">
-              <option value="">NOT SET</option>
-              {wallets.map((wallet) => (
-                <option key={wallet.walletAddress} value={wallet.walletAddress}>
-                  {formatAddress(wallet.walletAddress)} ({wallet.balance})
-                </option>
-              ))}
-            </select>
-          </div> */}
+        =
 
           <div className="flex justify-between items-center mb-4">
             <div className="flex items-center">
@@ -180,20 +188,14 @@ const SniperToken = () => {
                 ))}
               </select>
             </div>
-            {/* <div className="text-right">
-              <input
-                type="number"
-                className="block w-20 px-3 py-2 dark:bg-[#191919] bg-white border border-gray-700 rounded-md text-sm"
-                placeholder="FB"
-              />
-            </div> */}
+           
           </div>
 
           <div className="flex gap-2 mb-4">
-            <button className="bg-primary-gradient px-4 py-2 rounded-md text-sm">Generate Wallets</button>
+          <button className="bg-primary-gradient px-4 py-2 rounded-md text-sm" onClick={togglePopup}  >Generate Wallets</button>
             <button className="bg-primary-gradient px-4 py-2 rounded-md text-sm">Download Wallets</button>
-            <button className="bg-primary-gradient px-4 py-2 rounded-md text-sm">Buy Setting</button>
-            <button className="bg-primary-gradient px-4 py-2 rounded-md text-sm">Sell Setting</button>
+            <button className="bg-primary-gradient px-4 py-2 rounded-md text-sm" onClick={togglePopup2}>Buy Setting</button>
+            <button className="bg-primary-gradient px-4 py-2 rounded-md text-sm" onClick={togglePopup3}>Sell Setting</button>
           </div>
 
           <table className="dark:bg-[#191919] bg-white text-left text-sm p-4 w-full border rounded-md border-gray-300">
@@ -264,6 +266,15 @@ const SniperToken = () => {
           Create Pool
         </button>
       </div>
+      <Popup visible={isPopupVisible} onClose={togglePopup} >
+  <GenerateWallets/>
+</Popup>
+<Popup visible={isPopupVisible2} onClose={togglePopup2} >
+  <BuySetting/>
+</Popup>
+<Popup visible={isPopupVisible3} onClose={togglePopup3} >
+<SellSetting/>
+</Popup>
     </div>
   );
 };
