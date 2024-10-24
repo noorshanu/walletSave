@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect } from "react";
 import { listWallets, getBalance } from "../utils/api";
 import { useAccount } from "wagmi";
@@ -5,6 +6,7 @@ import Popup from "./Popup/Popup";
 import GenerateWallets from "./Popup/GenerateWallets";
 import BuySetting from "./Popup/BuySetting";
 import SellSetting from "./Popup/SellSetting ";
+import { FaEthereum } from "react-icons/fa";
 
 interface Wallet {
   walletAddress: string;
@@ -18,7 +20,23 @@ const SniperToken = () => {
   const [totalWallets, setTotalWallets] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [selectedOption, setSelectedOption] = useState('Select Pair');
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
+
+  const options = [
+    { name: 'ETH', icon: '/eth.png' },
+    { name: 'BSC', icon: '/bsc.png' },
+    // Add more options as needed
+  ];
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleOptionClick = (option: string) => {
+    setSelectedOption(option);
+    setIsDropdownOpen(false); // Close dropdown after selection
+  };
   const walletsPerPage = 10;
 
   const formatAddress = (address: string) => {
@@ -128,7 +146,7 @@ const SniperToken = () => {
   return (
     <div className=" ">
       <div className="flex flex-col gap-4  sm:flex-row">
-        <div className="  w-full sm:w-1/2 bg-white dark:bg-[#191919] text-white p-4 rounded-lg shadow-lg">
+        <div className="  w-full rounded-lg bg-white p-4 text-white shadow-lg dark:bg-[#191919] sm:w-1/2">
           <h2 className="mb-4 text-lg font-semibold text-black dark:text-white">
             Add liquidity
           </h2>
@@ -147,29 +165,52 @@ const SniperToken = () => {
             </div>
           </div>
 
-          <div className="flex flex-col w-full sm:w-1/2 sm:flex-row  ">
-            {/* Quote Section */}
-            <div className="flex w-full flex-col items-start  justify-start rounded-lg ">
-              <div className="flex w-full ">
-                <div className="mt-4 flex   w-full flex-col">
-                  <span className=" text-sm text-black dark:text-white">
-                    Balance: 1.00{" "}
-                  </span>
-                  <input
-                    type="number"
-                    placeholder="%"
-                    className="mt-1 block w-full rounded-md border border-gray-700 bg-white px-3 py-2 text-sm dark:bg-[#191919]"
-                  />
-                </div>
+          {/* Quote Section */}
+          <div className="  ">
+            <div className=" flex w-full items-center gap-4">
+              <div className=" w-full">
+                <label className="text-sm font-medium">Add Token %</label>
+                <input
+                  type="number"
+                  placeholder="%"
+                  className="mt-1 block w-full rounded-md border border-gray-700 bg-white px-3 py-2 text-sm dark:bg-[#191919]"
+                />
               </div>
+              <span className=" w-full text-sm text-black dark:text-white mt-6">
+                Balance: 1.00{" "}
+              </span>
+            </div>
 
-              <div className="mt-4 rounded-md  bg-green-600 px-6 py-1 text-sm font-semibold text-white">
-                Eth
-              </div>
+            <div className="mt-4 rounded-md w-10  bg-green-600 px-2 py-1 text-sm font-semibold text-white">
+              Eth
             </div>
           </div>
+       
+            <div className="relative inline-block w-full mt-4">
+      <button
+        onClick={toggleDropdown}
+        className="w-full bg-gray-100 dark:bg-[#191919] text-black-2 dark:text-white border border-gray-600 rounded-md p-3 flex justify-between items-center"
+      >
+        {selectedOption}
+        <span>&#9660;</span> {/* Dropdown arrow */}
+      </button>
+      {isDropdownOpen && (
+        <ul className="absolute w-full bg-white dark:bg-[#191919] border border-gray-300 mt-2 rounded-md shadow-lg z-10">
+          {options.map((option, index) => (
+            <li
+              key={index}
+              className="flex items-center p-3 hover:bg-gray-200 dark:hover:bg-gray-800 cursor-pointer"
+              onClick={() => handleOptionClick(option.name)}
+            >
+              <img src={option.icon} alt={option.name} className="w-6 h-6 mr-2" />
+              {option.name}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
         </div>
-        <div className="bg-white dark:bg-[#191919] text-white p-4 rounded-lg shadow-lg">
+        <div className="rounded-lg bg-white p-4 text-white shadow-lg dark:bg-[#191919]">
           <header className="flex items-center justify-between pb-4">
             <h1 className="text-xl font-bold">Sniper</h1>
           </header>
@@ -188,17 +229,15 @@ const SniperToken = () => {
                     Dev Wallet :{" "}
                   </label>
                   <p>9R3b2NEwdF1j8yGQQZZMUE...SCktKrn48aYZd</p>
-                  {/* <select className="block w-48 px-3 py-2 dark:bg-[#191919] bg-white border border-gray-700 rounded-md text-sm">
-                <option value="">NOT SET</option>
-                {wallets.map((wallet) => (
-                  <option key={wallet.walletAddress} value={wallet.walletAddress}>
-                    {formatAddress(wallet.walletAddress)} ({wallet.balance})
-                  </option>
-                ))}
-              </select> */}
                 </div>
                 <div className=" my-2 ">
-                  <label htmlFor="" className=" mr-4  mb-2 block text-sm font-medium"> First Buy</label>
+                  <label
+                    htmlFor=""
+                    className=" mb-2  mr-4 block text-sm font-medium"
+                  >
+                    {" "}
+                    First Buy
+                  </label>
                   <input
                     type="number"
                     className="block w-full rounded-md border border-gray-700 bg-white px-3 py-2 text-sm dark:bg-[#191919]"
@@ -269,7 +308,6 @@ const SniperToken = () => {
                     </tr>
                   ))}
                 </tbody>
-        
               </table>
 
               <div className="my-4 flex gap-2">
@@ -277,7 +315,7 @@ const SniperToken = () => {
                   className="bg-primary-gradient rounded-md px-4 py-2 text-sm"
                   onClick={togglePopup}
                 >
-               Samulate
+                  Samulate
                 </button>
                 <button className="bg-primary-gradient rounded-md px-4 py-2 text-sm">
                   Disperse
@@ -286,19 +324,19 @@ const SniperToken = () => {
                   className="bg-primary-gradient rounded-md px-4 py-2 text-sm"
                   onClick={togglePopup2}
                 >
-                Create
+                  Create
                 </button>
                 <button
                   className="bg-primary-gradient rounded-md px-4 py-2 text-sm"
                   onClick={togglePopup3}
                 >
-                 Buy
+                  Buy
                 </button>
                 <button
                   className="bg-primary-gradient rounded-md px-4 py-2 text-sm"
                   onClick={togglePopup3}
                 >
-              Disperse Token
+                  Disperse Token
                 </button>
               </div>
 
@@ -321,11 +359,9 @@ const SniperToken = () => {
                   Next
                 </button>
               </div>
-              {/* <div className="flex gap-2 my-4">
+      
          
-            <button className="bg-primary-gradient px-4 py-2 rounded-md text-sm">Buy </button>
-            <button className="bg-primary-gradient px-4 py-2 rounded-md text-sm">Sell </button>
-          </div> */}
+       
             </>
           )}
         </div>
