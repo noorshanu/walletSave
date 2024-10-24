@@ -1,15 +1,18 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import Link from "next/link";
-import { deleteRpcUrl, deployToken, listRpcUrls, updateRpcUrl } from "../utils/api";
+
+import {  deployToken, listRpcUrls, listWallets } from "../utils/api";
 // Assuming the API path is correct
 import { useAccount } from "wagmi";
 import SnipeToken from "./SnipeToken";
 import Popup from './Popup/Popup';
 import AddRpc from './Popup/AddRpc';
 import RpcToast from "./RpcToast";
-
+interface UserWallet {
+  walletAddress: string;
+  balance: string;
+}
 const CreateTokenForm = () => {
   const { address, isConnected } = useAccount(); // Get the connected wallet address
   const [tokenName, setTokenName] = useState("");
@@ -18,10 +21,12 @@ const CreateTokenForm = () => {
   const [totalSupply, setTotalSupply] = useState("");
   const [rpcList, setRpcList] = useState<{ name: string; rpcUrl: string }[]>([]); // List of saved RPC URLs
   const [selectedRpcUrl, setSelectedRpcUrl] = useState(""); // Selected RPC URL
+  const [wallets, setWallets] = useState<UserWallet[]>([]); // Use UserWallet type for correct data structure
+  const [selectedWallet, setSelectedWallet] = useState(''); // Selected wallet
   const [loading, setLoading] = useState(false);
   const [responseMessage, setResponseMessage] = useState<string | null>(null); // Response for debugging
   const [privateKey, setPrivateKey] = useState(""); // For demonstration, you should handle private key securely
-
+  const [error, setError] = useState<string | null>(null);
   // Fetch the saved RPC URLs when the component mounts
   useEffect(() => {
     const fetchRpcUrls = async () => {
@@ -34,10 +39,37 @@ const CreateTokenForm = () => {
         }
       }
     };
+    const fetchWallets = async () => {
+      if (!isConnected || !address) {
+        setError('Please connect your wallet.');
+        return;
+      }
 
+      setLoading(true);
+      setError(null);
+
+      try {
+        const response = await listWallets(address, 1, 10); // Fetch wallets from the first page
+        const { walletDetails } = response.data;
+
+        const walletsArray = Array.isArray(walletDetails) ? walletDetails : [];
+        setWallets(walletsArray); // Set fetched wallets
+      } catch (err) {
+        console.error('Error fetching wallets:', err);
+        setError('Failed to fetch wallets.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchWallets();
     fetchRpcUrls();
   }, [isConnected, address]);
-
+  
+  const formatAddress = (address: string) => {
+    return `${address.slice(0, 4)}...${address.slice(-6)}`;
+  };
+ 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedRpcUrl) {
@@ -86,16 +118,40 @@ const CreateTokenForm = () => {
     setIsPopupVisible(!isPopupVisible);
   };
 
+  const handleListRpcUrls = useCallback(async () => {
+    if (!isConnected || !address) {
+      RpcToast("Please connect your wallet", "error");
+      return;
+    }
+    try {
+      setLoading(true);
+      const res = await listRpcUrls(address as string);
+      const urls = res.data.rpcUrls.map((item: any) => ({
+        name: item.name,
+        rpcUrl: item.rpcUrl,
+      }));
+      setRpcList(urls);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  }, [address, isConnected]);
 
 
 
+
+  useEffect(() => {
+    handleListRpcUrls(); // Fetch on component mount
+  }, [handleListRpcUrls]);
   return (
    <>
    <div className=" flex  gap-2 flex-col sm:flex-row overflow-hidden">
    <div className=" bg-white shadow-md  dark:bg-[#191919] p-8 rounded-md w-full  mx-auto pb-12">
       {/* Header */}
       <h2 className="text-3xl font-bold text-black dark:text-white mb-6">Create Token</h2>
-
+      {error && <div className="text-red-500">{error}</div>}
+      {loading && <div>Loading wallets...</div>}
       {/* Form */}
       <form className="space-y-6 w-full " onSubmit={handleSubmit}>
         {/* Select Network */}
@@ -125,15 +181,19 @@ const CreateTokenForm = () => {
         {/* Private Key */}
         <div className="grid grid-cols-1  gap-6">
       <div>
-          <label className="block dark:text-white text-black-2 text-sm font-medium mb-1">* Owner Private Key</label>
-          <input
-            type="password"
-            placeholder="Enter your private key"
-            value={privateKey}
-            onChange={e => setPrivateKey(e.target.value)}
-            className="w-full bg-gray-100 dark:bg-[#191919] dark:text-white text-black-2 border border-gray-600 rounded-md p-3"
-            required
-          />
+          <label className="block dark:text-white text-black-2 text-sm font-medium mb-1">* Owner Address</label>
+          <select
+          className="w-full mt-1 p-3 bg-gray-100 dark:bg-[#191919] text-black-2 dark:text-white border border-gray-700 rounded-md"
+          value={selectedWallet}
+          onChange={(e) => setSelectedWallet(e.target.value)}
+        >
+          <option value="">Select Wallet</option>
+          {wallets.map((wallet) => (
+            <option key={wallet.walletAddress} value={wallet.walletAddress}>
+              {formatAddress(wallet.walletAddress)} ({wallet.balance})
+            </option>
+          ))}
+        </select>
         </div>
         <div>
           <label className="block dark:text-white text-black-2 text-sm font-medium mb-1">* TOKEN TYPE</label>
