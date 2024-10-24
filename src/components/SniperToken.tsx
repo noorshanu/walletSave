@@ -269,7 +269,38 @@ const SniperToken = () => {
                     </tr>
                   ))}
                 </tbody>
+        
               </table>
+
+              <div className="my-4 flex gap-2">
+                <button
+                  className="bg-primary-gradient rounded-md px-4 py-2 text-sm"
+                  onClick={togglePopup}
+                >
+               Samulate
+                </button>
+                <button className="bg-primary-gradient rounded-md px-4 py-2 text-sm">
+                  Disperse
+                </button>
+                <button
+                  className="bg-primary-gradient rounded-md px-4 py-2 text-sm"
+                  onClick={togglePopup2}
+                >
+                Create
+                </button>
+                <button
+                  className="bg-primary-gradient rounded-md px-4 py-2 text-sm"
+                  onClick={togglePopup3}
+                >
+                 Buy
+                </button>
+                <button
+                  className="bg-primary-gradient rounded-md px-4 py-2 text-sm"
+                  onClick={togglePopup3}
+                >
+              Disperse Token
+                </button>
+              </div>
 
               <div className="mt-4 flex justify-between">
                 <button
