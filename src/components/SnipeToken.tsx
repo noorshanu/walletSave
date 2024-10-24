@@ -126,7 +126,7 @@ const SnipeToken = () => {
   return (
     <div className="bg-white dark:bg-[#191919] text-white p-4 rounded-lg shadow-lg">
       <header className="flex justify-between items-center pb-4">
-        <h1 className="text-xl font-bold">CREATE TOKEN PROJECT NAME - TEST TOKEN</h1>
+        <h1 className="text-xl font-bold">Wallet manager</h1>
         <div className="text-right">
           <span className="text-sm">(Max Amount 793100000)</span>
         </div>
@@ -151,10 +151,14 @@ const SnipeToken = () => {
               ))}
             </select>
           </div>
+          <h2 className=' my-2 flex gap-3 items-center'>
+            Token Name : anything <button className='bg-primary-gradient px-2 py-2 rounded-md text-sm'>Verify contract</button>
+          </h2>
+
 
           <div className="flex justify-between items-center mb-4">
             <div className="flex items-center">
-              <label className="block text-sm font-medium mr-4">Dev Wallet</label>
+              <label className="block text-sm font-medium mr-4">Dev Wallet auto fetch</label>
               <select className="block w-48 px-3 py-2 dark:bg-[#191919] bg-white border border-gray-700 rounded-md text-sm">
                 <option value="">NOT SET</option>
                 {wallets.map((wallet) => (
@@ -164,20 +168,21 @@ const SnipeToken = () => {
                 ))}
               </select>
             </div>
-            <div className="text-right">
+            {/* <div className="text-right">
+              <label htmlFor=""> first buy</label>
               <input
                 type="number"
-                className="block w-20 px-3 py-2 dark:bg-[#191919] bg-white border border-gray-700 rounded-md text-sm"
-                placeholder="FB"
+                className="block w-24 px-3 py-2 dark:bg-[#191919] bg-white border border-gray-700 rounded-md text-sm"
+                placeholder="FB amount"
               />
-            </div>
+            </div> */}
           </div>
 
           <div className="flex gap-2 mb-4">
             <button className="bg-primary-gradient px-4 py-2 rounded-md text-sm" onClick={togglePopup}  >Generate Wallets</button>
             <button className="bg-primary-gradient px-4 py-2 rounded-md text-sm">Download Wallets</button>
-            <button className="bg-primary-gradient px-4 py-2 rounded-md text-sm" onClick={togglePopup2}>Buy Setting</button>
-            <button className="bg-primary-gradient px-4 py-2 rounded-md text-sm" onClick={togglePopup3}>Sell Setting</button>
+            {/* <button className="bg-primary-gradient px-4 py-2 rounded-md text-sm" onClick={togglePopup2}>Buy Setting</button>
+            <button className="bg-primary-gradient px-4 py-2 rounded-md text-sm" onClick={togglePopup3}>Sell Setting</button> */}
           </div>
 
           <table className="dark:bg-[#191919] bg-white text-left text-sm p-4 w-full border rounded-md border-gray-300">
@@ -236,11 +241,11 @@ const SnipeToken = () => {
               Next
             </button>
           </div>
-          <div className="flex gap-2 my-4">
+          {/* <div className="flex gap-2 my-4">
          
             <button className="bg-primary-gradient px-4 py-2 rounded-md text-sm">Buy </button>
             <button className="bg-primary-gradient px-4 py-2 rounded-md text-sm">Sell </button>
-          </div>
+          </div> */}
         </>
       )}
    <Popup visible={isPopupVisible} onClose={togglePopup} >
