@@ -20,7 +20,6 @@ interface DeployTokenResponse {
 
 // Define the request structure for token deployment
 interface DeployTokenRequest {
-  mainWallet: string;
   ownerWallet: {
     publicKey: string;
     privateKey: string;
@@ -56,10 +55,13 @@ interface TradeResponse {
 // Existing error handler
 const handleApiError = (error: any): string => {
   if (error.response) {
-    console.error("Error Response:", error.response.data);
-    if (error.response.data.error === "User already registered") {
-      return "User already registered";
+    // Log the full error response from the server
+    console.error("Error Response Data:", error.response.data);
+    
+    if (error.response.data.error) {
+      return error.response.data.error; // Return specific error from the server
     }
+    
     return error.response.data.message || "An error occurred";
   } else if (error.request) {
     console.error("No Response from Server:", error.request);
@@ -72,37 +74,34 @@ const handleApiError = (error: any): string => {
 
 // Deploy Token (POST /deploy-token)
 export const deployToken = async (
-  mainWallet: string,
-  ownerWalletPublicKey: string,
-  ownerWalletPrivateKey: string,
-  tokenName: string,
-  tokenSymbol: string,
-  decimals: number,
-  totalSupply: string,
-  rpcUrl: string,
+  deployer: string,        // Deployer's wallet address (public key)
+  privateKey: string,      // Private key for signing
+  tokenName: string,       // Token name
+  tokenSymbol: string,     // Token symbol
+  decimals: number,        // Token decimals
+  totalSupply: string,     // Total supply
+  rpcUrl: string           // RPC URL
 ): Promise<AxiosResponse<DeployTokenResponse>> => {
   try {
-    const requestData: DeployTokenRequest = {
-      mainWallet,
-      ownerWallet: {
-        publicKey: ownerWalletPublicKey,
-        privateKey: ownerWalletPrivateKey,
-      },
-      token: {
-        name: tokenName,
-        symbol: tokenSymbol,
-        decimals: decimals,
-        totalSupply: totalSupply,
-      },
+    const requestData = {
+      name: tokenName,
+      symbol: tokenSymbol,
+      decimals: decimals.toString(),    // Ensure decimals are passed as a string
+      totalSupply: totalSupply,
       rpcUrl: rpcUrl,
+      privateKey: privateKey,
+      deployer: deployer                // Deployer's public key
     };
+
+    // Log the payload to debug the request being sent
+    console.log("Request Payload:", requestData);
 
     const response = await axios.post(
       `${MINTER_API_URL}/deploy-token`,
       requestData,
       {
-        headers: { "Content-Type": "application/json" },
-      },
+        headers: { "Content-Type": "application/json" }
+      }
     );
     return response;
   } catch (error) {
@@ -248,6 +247,7 @@ export const sendToken = async (
 };
 interface WorkerWallet {
   address: string;
+  privateKey: string;
   isFundingWallet: boolean;
   isWorkerWallet: boolean;
 }
@@ -256,6 +256,7 @@ interface ListWorkerWalletsResponse {
   walletDetails: SetStateAction<WorkerWallet[]>;
   workerWallets: {
     address: string;
+    privateKey:string;
     isFundingWallet: boolean;
     isWorkerWallet: boolean;
   }[];
